@@ -17,29 +17,13 @@ public class MDestinoTuristico {
     private float tarifa;
     private String foto;
 
-    public MDestinoTuristico(int codigo,String nombreDestino, String descripcion, String municipio, float tarifa,String foto) {
+    public MDestinoTuristico(int codigo,String nombreDestino, String descripcion, String municipio, float tarifa) {
         this.codigo = codigo;
         this.nombreDestino = nombreDestino;
         this.descripcion = descripcion;
         this.municipio = municipio;
         this.tarifa = tarifa;
-        this.foto = foto;
     }
-  
-
-    public MDestinoTuristico() {
-        
-    } 
-
-    public MDestinoTuristico(String cañon_del_Rio_Claro) {
-    }
-
-    public MDestinoTuristico(String cañon_del_Rio_Claro, String reserva_natural, String entre_San_Francisco_Y_sanson, String desde_180000) {
-    }
-
-    public MDestinoTuristico(String string, String cañon_del_Rio_Claro, String reserva_natural, String entre_San_Francisco_Y_sanson, String desde_180000) {
-    }
-
   
     public int getCodigo() {
         return codigo;
