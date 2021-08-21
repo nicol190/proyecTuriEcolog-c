@@ -159,7 +159,6 @@ public class DestinosAdministrador extends javax.swing.JFrame {
             l1.add(i, destinos.get(i).getNombreDestino());
             System.out.println(destinos.get(i).getNombreDestino());
         }
-        jList1.add(l1);
     }//GEN-LAST:event_BotonListarActionPerformed
 
     private void BotonListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonListarMouseClicked
