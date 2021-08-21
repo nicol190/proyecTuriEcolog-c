@@ -257,6 +257,8 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             datosRegistro.setPassword(password1);
             datosRegistro.setCorreo(correo);
             datosRegistro.setTelefono("345678");
+            datosRegistro.setIsAdmin(false);
+            
                 
                 
             boolean respuesta = false;

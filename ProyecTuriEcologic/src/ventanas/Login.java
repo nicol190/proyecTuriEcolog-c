@@ -199,10 +199,16 @@ public class Login extends javax.swing.JFrame {
             try {
                 MUsuario busquedaU = controladorRegistrar.buscarUsuario(usuario, password);
                 if (busquedaU != null){
-                    DestinoTuristico DE = new DestinoTuristico();
-                    DE.setVisible(true);
-                    dispose();
-                    
+                    if (busquedaU.isIsAdmin()== true){
+                        DestinosAdministrador DA = new DestinosAdministrador();
+                        DA.setVisible(true);
+                        dispose();
+                    }else{
+                        DestinoTuristico DE = new DestinoTuristico();
+                        DE.setVisible(true);
+                        dispose();
+                    }
+                  
                 }else{
                     JOptionPane.showMessageDialog(null, "El usuario no existe debe registrarse");
                 }
@@ -243,7 +249,7 @@ public class Login extends javax.swing.JFrame {
 
     
     private void txBotonRegistrarseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txBotonRegistrarseMouseClicked
-  
+   
       
             
             
