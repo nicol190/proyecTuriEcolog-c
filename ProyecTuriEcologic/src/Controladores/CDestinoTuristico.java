@@ -12,8 +12,6 @@ import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
 
 /**
  *
@@ -32,7 +30,7 @@ public class CDestinoTuristico {
     }
     
     public LinkedList<MDestinoTuristico> obtenerLista() throws FileNotFoundException{
-        BufferedReader br = new BufferedReader(new FileReader(url));
+        BufferedReader br = new BufferedReader(new FileReader(url));// Reader para obtener la lista de destinos en el futuro
        
         
         LinkedList<MDestinoTuristico> lista = new LinkedList();
