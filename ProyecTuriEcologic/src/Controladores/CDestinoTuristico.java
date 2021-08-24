@@ -129,14 +129,21 @@ public class CDestinoTuristico {
 
         String informacion = destinos.getCodigo() + "," + destinos.getUsuario();
         MDestinoFavorito favorito = buscarDestinoFavorito(destinos.getCodigo(),destinos.getUsuario());
+        if(favorito!=null){
+            JOptionPane.showMessageDialog(null, "El destino ya esta agregado en la lista de favoritos ");
+            
+        }else{
+            BufferedWriter bw = new BufferedWriter(new FileWriter(url, true));
 
-        BufferedWriter bw = new BufferedWriter(new FileWriter(url, true));
-
-        bw.write(informacion);
-        bw.flush();
-        bw.newLine();
-        bw.close();
-        respuesta = true;
+            bw.write(informacion);
+            bw.flush();
+            bw.newLine();
+            bw.close();
+            respuesta = true;
+            
+        }
+        
+        
         return respuesta;
     }
 
@@ -270,9 +277,8 @@ public class CDestinoTuristico {
                 }
 
             }
-
-            br.close();
         }
+        br.close();
         return null;
     }
  }
