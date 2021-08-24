@@ -22,12 +22,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author pipe_
  */
-public class DestinosAdministrador extends javax.swing.JFrame {
+public class DestinoAdministrador extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel(); //modelo para ser insertado en la tabla.
     /**
      * Creates new form DestinosAdministrador
      */
-    public DestinosAdministrador() {
+    public DestinoAdministrador() {
         initComponents();
     }
     
@@ -40,7 +40,7 @@ public class DestinosAdministrador extends javax.swing.JFrame {
         try {
             listaDestinos = new CDestinoTuristico().obtenerLista();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DestinosAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         modelo = (DefaultTableModel)tablaDestinos.getModel();
@@ -299,20 +299,21 @@ public class DestinosAdministrador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DestinosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DestinoAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DestinosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DestinoAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DestinosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DestinoAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DestinosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DestinoAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DestinosAdministrador().setVisible(true);
+                new DestinoAdministrador().setVisible(true);
             }
         });
     }
