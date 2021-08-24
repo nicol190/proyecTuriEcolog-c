@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 /**
  *
@@ -29,22 +31,39 @@ public class CDestinoTuristico {
         
     }
     
-    public LinkedList<MDestinoTuristico> obtenerLista() throws FileNotFoundException{
-        BufferedReader br = new BufferedReader(new FileReader(url));// Reader para obtener la lista de destinos en el futuro
+    public Stack<MDestinoTuristico> obtenerListaPila() throws FileNotFoundException{
+        BufferedReader br = new BufferedReader(new FileReader(url));
        
         
-        LinkedList<MDestinoTuristico> lista = new LinkedList();
+        Stack<MDestinoTuristico> pila = new Stack<>();
        
         
-        lista.add(new MDestinoTuristico(1, "Cañon del Rio Claro" , "Reserva natural", "Entre San Francisco Y sanson", 180.000f));
-        lista.add(new MDestinoTuristico(2, "Rio Melcocho" , "cristalino para Rafting y senderismo", "Cocorná", 60.000f));
-        lista.add(new MDestinoTuristico(3, "Páramo del sol" ,"lugar mas alto de Antioquia para senderismo", "Urrao", 70.000f));
-        lista.add(new MDestinoTuristico(4, "Cerro Quitasol" ,"Cerro natural para senderismo", "Bello Antioquia", 25.000f));
-        lista.add(new MDestinoTuristico(5, "Salto del Ángel" ,"Cascada natural para senderismo", "Envigado", 194.000f));
-        lista.add(new MDestinoTuristico(6, "Los Saltos Ecoparque" , "Cascadas y nacimientos de agua", "Entre la Ceja y Abejorral", 120.000f));        
+        pila.add(new MDestinoTuristico("1","Cañon del Rio Claro" , "Reserva natural", "Entre San Francisco Y sanson", "desde 180.000"));
+        pila.add(new MDestinoTuristico("2","Rio Melcocho" , "cristalino para Rafting y senderismo", "Cocorná", "desde 60.000"));
+        pila.add(new MDestinoTuristico("3","Páramo del sol" ,"lugar mas alto de Antioquia para senderismo", "Urrao", "desde 70.000 "));
+        pila.add(new MDestinoTuristico("4","Cerro Quitasol" ,"Cerro natural para senderismo", "Bello Antioquia", "desde 25.000"));
+        pila.add(new MDestinoTuristico("5","Salto del Ángel" ,"Cascada natural para senderismo", "Envigado", "desde 194.000"));
+        pila.add(new MDestinoTuristico("6","Los Saltos Ecoparque" , "Cascadas y nacimientos de agua", "Entre la Ceja y Abejorral", "desde 120.000"));
+        MDestinoTuristico cachar = pila.pop();
         
-        return lista;
+        
+        return pila;
     
+    }
+    
+    public Stack<MDestinoTuristico> obtenerListaCola() throws FileNotFoundException{
+        BufferedReader br = new BufferedReader(new FileReader(url));
+        
+        Queue<MDestinoTuristico> cola = new LinkedList<>();
+        
+        cola.add(new MDestinoTuristico("1", "Cañon del Rio Claro", "Reserva natural", "Entre San Francisco Y sanson", "desde 180.000"));
+        cola.add(new MDestinoTuristico("2", "Rio Melcocho", "cristalino para Rafting y senderismo", "Cocorná", "desde 60.000"));
+        cola.add(new MDestinoTuristico("3", "Páramo del sol", "lugar mas alto de Antioquia para senderismo", "Urrao", "desde 70.000 "));
+        cola.add(new MDestinoTuristico("4", "Cerro Quitasol", "Cerro natural para senderismo", "Bello Antioquia", "desde 25.000"));
+        cola.add(new MDestinoTuristico("5", "Salto del Ángel", "Cascada natural para senderismo", "Envigado", "desde 194.000"));
+        cola.add(new MDestinoTuristico("6", "Los Saltos Ecoparque", "Cascadas y nacimientos de agua", "Entre la Ceja y Abejorral", "desde 120.000"));
+
+        return (Stack<MDestinoTuristico>) cola;
     }
    
 }

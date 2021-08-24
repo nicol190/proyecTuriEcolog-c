@@ -9,15 +9,15 @@ package Modelos;
  *
  * @author pipe_
  */
-public class MDestinoTuristico {
+public class MDestinoAdministrador {
     private int codigo;
     private String nombreDestino;
     private String descripcion;
     private String municipio;
-    private float tarifa;
-    private String foto;
+    private int tarifa;
+    private String foto;//Sin implementar.
 
-    public MDestinoTuristico(int codigo,String nombreDestino, String descripcion, String municipio, int tarifa) {
+    public MDestinoAdministrador(int codigo,String nombreDestino, String descripcion, String municipio, int tarifa) {
         this.codigo = codigo;
         this.nombreDestino = nombreDestino;
         this.descripcion = descripcion;
@@ -58,11 +58,11 @@ public class MDestinoTuristico {
         this.municipio = municipio;
     }
 
-    public float getTarifa() {
+    public int getTarifa() {
         return tarifa;
     }
 
-    public void setTarifa(float tarifa) {
+    public void setTarifa(int tarifa) {
         this.tarifa = tarifa;
     }
 

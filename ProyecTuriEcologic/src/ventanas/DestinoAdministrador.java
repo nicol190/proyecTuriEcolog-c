@@ -5,7 +5,7 @@
  */
 package ventanas;
 
-import Controladores.CDestinoTuristico;
+import Controladores.CDestinoAdministrador;
 import Modelos.MDestinoTuristico;
 import java.awt.Component;
 import java.awt.List;
@@ -38,7 +38,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         
         LinkedList<MDestinoTuristico> listaDestinos = null;
         try {
-            listaDestinos = new CDestinoTuristico().obtenerLista();
+            listaDestinos = new CDestinoAdministrador().obtenerLista();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -261,7 +261,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         listar();
     }//GEN-LAST:event_BotonListarActionPerformed
 
