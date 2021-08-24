@@ -1,7 +1,3 @@
-3,nbernal
-6,nbernal
 4,nbernal
+2,nbernal
 3,nbernal
-3,nbernal
-3,nbernal
-4,nbernal
