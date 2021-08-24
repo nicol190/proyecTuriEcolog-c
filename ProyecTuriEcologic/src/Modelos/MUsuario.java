@@ -25,6 +25,7 @@ public class MUsuario {
     private String usuario;
     private String password;
     private String telefono;
+    private boolean isAdmin;
 
     public MUsuario(String nombre, String apellido, String correo, String telefono,String usuario, String password) {
         this.nombre = nombre;
@@ -33,6 +34,7 @@ public class MUsuario {
         this.usuario = usuario;
         this.password = password;
         this.telefono = telefono;
+       
     }
 
     public MUsuario() {
@@ -87,6 +89,14 @@ public class MUsuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     
