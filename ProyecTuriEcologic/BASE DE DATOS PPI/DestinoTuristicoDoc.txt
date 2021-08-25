@@ -1,2 +1,1 @@
-1,Cerro Zumba,Bonito,San Juan de Urabá,100000
-2,Cerro Tuza,Muy agradable,San Juan De Urabá,100000
+1,Cerro Zumba,Muy agradable.,San Juan de Urabá,150000

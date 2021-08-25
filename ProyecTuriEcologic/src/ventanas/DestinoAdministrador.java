@@ -25,13 +25,15 @@ import javax.swing.table.DefaultTableModel;
  * @author pipe_
  */
 public class DestinoAdministrador extends javax.swing.JFrame {
-    DefaultTableModel modelo = new DefaultTableModel(); //modelo para ser insertado en la tabla.
+    DefaultTableModel modelo;//modelo para ser insertado en la tabla.
     /**
      * Creates new form DestinosAdministrador
      */
     public DestinoAdministrador() throws IOException {
         initComponents();
+        modelo = new DefaultTableModel();
         this.listar();
+        
     }
     
     void listar() throws IOException{
@@ -111,6 +113,32 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         }
         return 1;
     }
+    
+    public void eliminar() throws IOException {
+        int filaSeleccionada = this.tablaDestinos.getSelectedRow();
+        JFrame frame = new JFrame();
+        if (filaSeleccionada >= 0){
+            int seleccion = JOptionPane.showConfirmDialog(frame, "¿Está seguro de que desea eliminar el destino " + (filaSeleccionada + 1) + " ?");
+            if (seleccion != 0){//Selecciona diferente de SI.
+            }else{//Selecciona SI:
+                CDestinoAdministrador controlador = new CDestinoAdministrador();
+                controlador.eliminarDestino(this.modelo.getValueAt(filaSeleccionada, 0).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 1).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 2).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 3).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
+                
+                this.modelo.removeRow(seleccion);
+            }
+        }else{
+            JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
+        }
+    }
+    
+    public void modificar(){
+        
+    }
+
     
     void cerrarSesion(){
         Component frame = new JFrame();
@@ -255,7 +283,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -270,11 +298,18 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             }
         });
         tablaDestinos.getTableHeader().setReorderingAllowed(false);
+        tablaDestinos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaDestinosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaDestinos);
         if (tablaDestinos.getColumnModel().getColumnCount() > 0) {
             tablaDestinos.getColumnModel().getColumn(0).setResizable(false);
             tablaDestinos.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tablaDestinos.getColumnModel().getColumn(1).setResizable(false);
             tablaDestinos.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tablaDestinos.getColumnModel().getColumn(2).setResizable(false);
             tablaDestinos.getColumnModel().getColumn(2).setPreferredWidth(100);
             tablaDestinos.getColumnModel().getColumn(3).setResizable(false);
             tablaDestinos.getColumnModel().getColumn(3).setPreferredWidth(30);
@@ -368,7 +403,12 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonCrearActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.eliminar();
+        } catch (IOException ex) {
+            Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
@@ -440,6 +480,15 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     private void txMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txMunicipioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txMunicipioActionPerformed
+
+    private void tablaDestinosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDestinosMouseClicked
+        // TODO add your handling code here:
+        int filaSeleccionada = this.tablaDestinos.getSelectedRow();
+        this.txNombreDestino.setText(this.modelo.getValueAt(filaSeleccionada, 1).toString());
+        this.txDescripcion.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
+        this.txMunicipio.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
+        this.txTarifa.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString());
+    }//GEN-LAST:event_tablaDestinosMouseClicked
 
     /**
      * @param args the command line arguments
