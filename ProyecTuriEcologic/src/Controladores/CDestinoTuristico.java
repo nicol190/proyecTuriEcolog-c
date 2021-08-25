@@ -121,14 +121,15 @@ public class CDestinoTuristico {
     
 
     public boolean agregarDestinoFavorito(MDestinoFavorito destinos) throws IOException {
-        Path path = Paths.get("");
-        String directoryName = path.toAbsolutePath().toString();
-        url = directoryName + "/BASE DE DATOS PPI/DestinosFavoritos.txt";
-        urlTemp = directoryName + "/Base de datos/DestinosFavoritos.txt";
+        
         boolean respuesta = false;
 
         String informacion = destinos.getCodigo() + "," + destinos.getUsuario();
         MDestinoFavorito favorito = buscarDestinoFavorito(destinos.getCodigo(),destinos.getUsuario());
+        Path path = Paths.get("");
+        String directoryName = path.toAbsolutePath().toString();
+        url = directoryName + "/BASE DE DATOS PPI/DestinosFavoritos.txt";
+        urlTemp = directoryName + "/Base de datos/DestinosFavoritos.txt";
         if(favorito!=null){
             JOptionPane.showMessageDialog(null, "El destino ya esta agregado en la lista de favoritos ");
             
