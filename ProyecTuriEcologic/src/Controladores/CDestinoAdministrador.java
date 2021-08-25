@@ -5,13 +5,20 @@
  */
 package Controladores;
 
+import Modelos.MDestinoAdministrador;
 import Modelos.MDestinoTuristico;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,26 +32,40 @@ public class CDestinoAdministrador {
         Path path = Paths.get("");
         String directoryName = path.toAbsolutePath().toString();
         url = directoryName + "/BASE DE DATOS PPI/DestinoTuristicoDoc.txt";
-        urlTemp = directoryName + "/Base de datos/DestinoTuristicoDoc.txt";
         
     }
     
-    public LinkedList<MDestinoTuristico> obtenerLista() throws FileNotFoundException{
-        BufferedReader br = new BufferedReader(new FileReader(url));// Reader para obtener la lista de destinos en el futuro
-       
-        
+    public LinkedList<MDestinoTuristico> obtenerListaCola() throws FileNotFoundException, IOException {
         LinkedList<MDestinoTuristico> lista = new LinkedList();
-       
-        
-        lista.add(new MDestinoTuristico(1, "Cañon del Rio Claro" , "Reserva natural", "Entre San Francisco Y sanson", 180000));
-        lista.add(new MDestinoTuristico(2, "Rio Melcocho" , "cristalino para Rafting y senderismo", "Cocorná", 60000));
-        lista.add(new MDestinoTuristico(3, "Páramo del sol" ,"lugar mas alto de Antioquia para senderismo", "Urrao", 70000));
-        lista.add(new MDestinoTuristico(4, "Cerro Quitasol" ,"Cerro natural para senderismo", "Bello Antioquia", 25000));
-        lista.add(new MDestinoTuristico(5, "Salto del Ángel" ,"Cascada natural para senderismo", "Envigado", 194000));
-        lista.add(new MDestinoTuristico(6, "Los Saltos Ecoparque" , "Cascadas y nacimientos de agua", "Entre la Ceja y Abejorral", 120000));        
-        
+
+        BufferedReader reader = new BufferedReader(new FileReader(url));
+        String record;
+
+        while ((record = reader.readLine()) != null) {
+            StringTokenizer st = new StringTokenizer(record, ",");
+            lista.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Integer.parseInt(st.nextToken())));
+
+        }
+
+        reader.close();
+
         return lista;
-    
+
     }
-   
+    
+    public void agregarDestino(MDestinoAdministrador destino) throws IOException {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(this.url, true));
+            
+            String linea = destino.getCodigo() + "," +
+                    destino.getNombreDestino() + "," +
+                    destino.getDescripcion() + "," +
+                    destino.getMunicipio() + "," +
+                    destino.getTarifa();
+            
+            bw.write(linea);
+            bw.flush();
+            bw.newLine();
+            bw.close();
+    }
+
 }

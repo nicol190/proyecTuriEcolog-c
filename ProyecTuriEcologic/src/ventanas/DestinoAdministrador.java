@@ -6,16 +6,18 @@
 package ventanas;
 
 import Controladores.CDestinoAdministrador;
+import Modelos.MDestinoAdministrador;
 import Modelos.MDestinoTuristico;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.List;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,18 +29,19 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     /**
      * Creates new form DestinosAdministrador
      */
-    public DestinoAdministrador() {
+    public DestinoAdministrador() throws IOException {
         initComponents();
+        this.listar();
     }
     
-    void listar(){
+    void listar() throws IOException{
         if (modelo.getRowCount() > 0){//Si se imprimió previamente, se limpia la tabla y se imprime nuevamente.
             modelo.setRowCount(0);
         }
         
         LinkedList<MDestinoTuristico> listaDestinos = null;
         try {
-            listaDestinos = new CDestinoAdministrador().obtenerLista();
+            listaDestinos = new CDestinoAdministrador().obtenerListaCola();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,11 +58,58 @@ public class DestinoAdministrador extends javax.swing.JFrame {
           //objeto[5] = listaDestinos.get(i).getFoto();
           
             modelo.addRow(objeto); //Añadiendo las celdas de cada fila del modelo.
-            System.out.println(listaDestinos.get(i).getNombreDestino());
         }
         
-        tablaDestinos.setModel(modelo);
+        this.tablaDestinos.setModel(modelo);
         
+    }
+    
+    boolean isEmpty(JTextField textBox){
+        return textBox.getText().length() == 0;
+    }
+    
+    int crear() throws IOException{
+        if (this.isEmpty(this.txNombreDestino) || 
+            this.isEmpty(this.txDescripcion) ||
+            this.isEmpty(this.txMunicipio) || 
+            this.isEmpty(this.txTarifa)) //Si todos los campos están vacios. 
+        {
+            Component frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Todos los campos son obligatorios");
+        }else{
+            int codigo = tablaDestinos.getRowCount();
+            String nombreDestinoTXT = txNombreDestino.getText();
+            String descripcionTXT = txDescripcion.getText();
+            String municipioTXT = txMunicipio.getText();
+            int tarifaTXT = 0;
+            try {
+                //  Block of code to try
+                tarifaTXT = Integer.parseInt(txTarifa.getText());
+            }
+            catch(Exception e) {
+                //  Block of code to handle errors
+                Component frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, "Ingrese solo numeros enteros sin comas ni puntos");
+                return 0;
+            }
+            
+            MDestinoAdministrador destino = new MDestinoAdministrador(codigo, nombreDestinoTXT, descripcionTXT, municipioTXT, tarifaTXT);
+            
+            Object[] fila = new Object[5]; //Fila para agregar al modelo de la tabla.
+            fila[0] = codigo;  
+            fila[1] = nombreDestinoTXT;
+            fila[2] = descripcionTXT;
+            fila[3] = municipioTXT;
+            fila[4] = tarifaTXT;
+            //fila[?] foto sin implementar.
+
+            modelo.addRow(fila);//Agregando nueva fila.
+            
+            
+            CDestinoAdministrador controlador = new CDestinoAdministrador();
+            controlador.agregarDestino(destino);
+        }
+        return 1;
     }
     
     void cerrarSesion(){
@@ -72,6 +122,19 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             dispose();
         }
                
+    }
+    
+    void createPlaceHolder(JTextField textField, String placeHolderText){
+        if(textField.getText().equals(placeHolderText)){
+            textField.setText("");
+            textField.setForeground(Color.black);
+        }
+        else{ 
+            if(textField.getText().equals("")){
+                textField.setText(placeHolderText);
+                textField.setForeground(Color.GRAY);
+            }
+        }
     }
 
     /**
@@ -91,7 +154,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txNombreDestino = new javax.swing.JTextField();
         txDescripcion = new javax.swing.JTextField();
-        municipio = new javax.swing.JTextField();
+        txMunicipio = new javax.swing.JTextField();
         txTarifa = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaDestinos = new javax.swing.JTable();
@@ -128,26 +191,58 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("TuriEcologic");
 
+        txNombreDestino.setForeground(new java.awt.Color(153, 153, 153));
         txNombreDestino.setText("Nombre");
+        txNombreDestino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txNombreDestinoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txNombreDestinoFocusLost(evt);
+            }
+        });
         txNombreDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txNombreDestinoActionPerformed(evt);
             }
         });
 
-        txDescripcion.setText("descripcion");
-        txDescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txDescripcionActionPerformed(evt);
+        txDescripcion.setColumns(1);
+        txDescripcion.setForeground(new java.awt.Color(153, 153, 153));
+        txDescripcion.setText("Descripcion");
+        txDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txDescripcionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txDescripcionFocusLost(evt);
             }
         });
 
-        municipio.setText("municipio");
-
-        txTarifa.setText("tarifa");
-        txTarifa.addActionListener(new java.awt.event.ActionListener() {
+        txMunicipio.setForeground(new java.awt.Color(153, 153, 153));
+        txMunicipio.setText("Municipio");
+        txMunicipio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txMunicipioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txMunicipioFocusLost(evt);
+            }
+        });
+        txMunicipio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txTarifaActionPerformed(evt);
+                txMunicipioActionPerformed(evt);
+            }
+        });
+
+        txTarifa.setForeground(new java.awt.Color(153, 153, 153));
+        txTarifa.setText("Tarifa");
+        txTarifa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txTarifaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txTarifaFocusLost(evt);
             }
         });
 
@@ -160,13 +255,21 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        tablaDestinos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaDestinos);
         if (tablaDestinos.getColumnModel().getColumnCount() > 0) {
             tablaDestinos.getColumnModel().getColumn(0).setResizable(false);
@@ -189,71 +292,79 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BotonCerrarSesión)
+                .addGap(30, 30, 30))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(municipio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txTarifa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txNombreDestino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(BotonCerrarSesión, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(txNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BotonListar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BotonModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BotonEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BotonCrear)
-                        .addGap(102, 102, 102))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(393, 393, 393)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BotonListar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BotonModificar)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotonEliminar)
+                                .addGap(76, 76, 76)
+                                .addComponent(BotonCrear))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel3)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(BotonCerrarSesión)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotonListar)
                     .addComponent(BotonModificar)
                     .addComponent(BotonEliminar)
                     .addComponent(BotonCrear))
                 .addGap(23, 23, 23))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(BotonCerrarSesión)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCrearActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.crear();
+        } catch (IOException ex) {
+            Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BotonCrearActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
@@ -261,26 +372,74 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
-        // TODO add your handling code here:
-        listar();
+        try {
+            // TODO add your handling code here:
+            this.listar();
+        } catch (IOException ex) {
+            Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BotonListarActionPerformed
 
     private void txNombreDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNombreDestinoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txNombreDestinoActionPerformed
 
-    private void txTarifaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTarifaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txTarifaActionPerformed
-
-    private void txDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txDescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txDescripcionActionPerformed
-
     private void BotonCerrarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesiónActionPerformed
         // TODO add your handling code here:
-        cerrarSesion();
+        this.cerrarSesion();
     }//GEN-LAST:event_BotonCerrarSesiónActionPerformed
+
+    private void txNombreDestinoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txNombreDestinoFocusGained
+        // TODO add your handling code here:
+        String placeHolderText = "Nombre";
+        this.createPlaceHolder(this.txNombreDestino, placeHolderText);
+    }//GEN-LAST:event_txNombreDestinoFocusGained
+
+    private void txNombreDestinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txNombreDestinoFocusLost
+        // TODO add your handling code here:
+        String placeHolderText = "Nombre";
+        this.createPlaceHolder(this.txNombreDestino, placeHolderText);
+    }//GEN-LAST:event_txNombreDestinoFocusLost
+
+    private void txMunicipioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txMunicipioFocusGained
+        // TODO add your handling code here:
+        String placeHolderText = "Municipio";
+        this.createPlaceHolder(this.txMunicipio, placeHolderText);
+    }//GEN-LAST:event_txMunicipioFocusGained
+
+    private void txMunicipioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txMunicipioFocusLost
+        // TODO add your handling code here:
+        String placeHolderText = "Municipio";
+        this.createPlaceHolder(this.txMunicipio, placeHolderText);
+    }//GEN-LAST:event_txMunicipioFocusLost
+
+    private void txTarifaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txTarifaFocusGained
+        // TODO add your handling code here:
+        String placeHolderText = "Tarifa";
+        this.createPlaceHolder(this.txTarifa, placeHolderText);
+    }//GEN-LAST:event_txTarifaFocusGained
+
+    private void txTarifaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txTarifaFocusLost
+        // TODO add your handling code here:
+        String placeHolderText = "Tarifa";
+        this.createPlaceHolder(this.txTarifa, placeHolderText);
+    }//GEN-LAST:event_txTarifaFocusLost
+
+    private void txDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txDescripcionFocusGained
+        // TODO add your handling code here:
+        String placeHolderText = "Descripcion";
+        this.createPlaceHolder(this.txDescripcion, placeHolderText);
+    }//GEN-LAST:event_txDescripcionFocusGained
+
+    private void txDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txDescripcionFocusLost
+        // TODO add your handling code here:
+        String placeHolderText = "Descripcion";
+        this.createPlaceHolder(this.txDescripcion, placeHolderText);
+    }//GEN-LAST:event_txDescripcionFocusLost
+
+    private void txMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txMunicipioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txMunicipioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,7 +472,11 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DestinoAdministrador().setVisible(true);
+                try {
+                    new DestinoAdministrador().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -327,9 +490,9 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField municipio;
     private javax.swing.JTable tablaDestinos;
     private javax.swing.JTextField txDescripcion;
+    private javax.swing.JTextField txMunicipio;
     private javax.swing.JTextField txNombreDestino;
     private javax.swing.JTextField txTarifa;
     // End of variables declaration//GEN-END:variables
