@@ -86,6 +86,31 @@ public class CDestinoAdministrador {
 
     }
     
+public boolean actualizarDestino(String codigo, String nombreDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
+        File archivoEntrada = new File (this.url);
+        File archivoTemporal = new File(this.urlTemp);
+
+        BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
+
+        String lineaAActualizar = codigo + "," + nombreDestino + "," + descripcion + "," + municipio + "," + tarifa;
+        String lineaActual;
+
+        while((lineaActual = reader.readLine()) != null) {
+            // Recortando linea a los extremos para comparla con linea a actualizar. 
+            String lineaRecortada = lineaActual.trim();
+            if(lineaRecortada.startsWith(codigo)){
+                    writer.write(lineaAActualizar + System.getProperty("line.separator"));
+                    continue;
+            } //Omite la linea con ocurrencia y no la escribe en el archivo temporal
+            writer.write(lineaActual + System.getProperty("line.separator")); //Separador de lineas.
+        }
+        writer.close(); 
+        reader.close();
+        archivoEntrada.delete();
+        return archivoTemporal.renameTo(archivoEntrada); //Renombrando el archivo temporal al nombre del de entrada para reemplazarlo
+    }
+    
     public void agregarDestino(MDestinoAdministrador destino) throws IOException {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.url, true));
             

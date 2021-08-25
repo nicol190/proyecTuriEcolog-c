@@ -135,8 +135,22 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         }
     }
     
-    public void modificar(){
+    public void actualizar() throws IOException{
+        int filaSeleccionada = this.tablaDestinos.getSelectedRow();
         
+        if (filaSeleccionada >= 0){
+            modelo.setValueAt(this.txNombreDestino.getText(), filaSeleccionada, 1);
+            modelo.setValueAt(this.txDescripcion.getText(), filaSeleccionada, 2);
+            modelo.setValueAt(this.txMunicipio.getText(), filaSeleccionada, 3);
+            modelo.setValueAt(this.txTarifa.getText(), filaSeleccionada, 4);
+            
+            CDestinoAdministrador controlador = new CDestinoAdministrador();
+            controlador.actualizarDestino(modelo.getValueAt(filaSeleccionada, 0).toString(),
+                                        this.modelo.getValueAt(filaSeleccionada, 1).toString(),
+                                        this.modelo.getValueAt(filaSeleccionada, 2).toString(),
+                                        this.modelo.getValueAt(filaSeleccionada, 3).toString(),
+                                        this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
+        }
     }
 
     
@@ -175,7 +189,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         BotonCrear = new javax.swing.JButton();
-        BotonModificar = new javax.swing.JButton();
+        botonActualizar = new javax.swing.JButton();
         BotonListar = new javax.swing.JButton();
         BotonEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -197,7 +211,12 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             }
         });
 
-        BotonModificar.setText("Modificar");
+        botonActualizar.setText("Actualizar");
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
+            }
+        });
 
         BotonListar.setText("Listar");
         BotonListar.addActionListener(new java.awt.event.ActionListener() {
@@ -347,7 +366,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(BotonListar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BotonModificar)
+                                .addComponent(botonActualizar)
                                 .addGap(18, 18, 18)
                                 .addComponent(BotonEliminar)
                                 .addGap(76, 76, 76)
@@ -384,7 +403,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotonListar)
-                    .addComponent(BotonModificar)
+                    .addComponent(botonActualizar)
                     .addComponent(BotonEliminar)
                     .addComponent(BotonCrear))
                 .addGap(23, 23, 23))
@@ -490,6 +509,15 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         this.txTarifa.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString());
     }//GEN-LAST:event_tablaDestinosMouseClicked
 
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        try {
+            // TODO add your handling code here:
+            this.actualizar();
+        } catch (IOException ex) {
+            Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -535,7 +563,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton BotonCrear;
     private javax.swing.JButton BotonEliminar;
     private javax.swing.JButton BotonListar;
-    private javax.swing.JButton BotonModificar;
+    private javax.swing.JButton botonActualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
