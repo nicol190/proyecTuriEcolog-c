@@ -121,22 +121,30 @@ public class CDestinoTuristico {
     
 
     public boolean agregarDestinoFavorito(MDestinoFavorito destinos) throws IOException {
-        Path path = Paths.get("");
-        String directoryName = path.toAbsolutePath().toString();
-        url = directoryName + "/BASE DE DATOS PPI/DestinosFavoritos.txt";
-        urlTemp = directoryName + "/Base de datos/DestinosFavoritos.txt";
+        
         boolean respuesta = false;
 
         String informacion = destinos.getCodigo() + "," + destinos.getUsuario();
         MDestinoFavorito favorito = buscarDestinoFavorito(destinos.getCodigo(),destinos.getUsuario());
+        Path path = Paths.get("");
+        String directoryName = path.toAbsolutePath().toString();
+        url = directoryName + "/BASE DE DATOS PPI/DestinosFavoritos.txt";
+        urlTemp = directoryName + "/Base de datos/DestinosFavoritos.txt";
+        if(favorito!=null){
+            JOptionPane.showMessageDialog(null, "El destino ya esta agregado en la lista de favoritos ");
+            
+        }else{
+            BufferedWriter bw = new BufferedWriter(new FileWriter(url, true));
 
-        BufferedWriter bw = new BufferedWriter(new FileWriter(url, true));
-
-        bw.write(informacion);
-        bw.flush();
-        bw.newLine();
-        bw.close();
-        respuesta = true;
+            bw.write(informacion);
+            bw.flush();
+            bw.newLine();
+            bw.close();
+            respuesta = true;
+            
+        }
+        
+        
         return respuesta;
     }
 
@@ -270,9 +278,8 @@ public class CDestinoTuristico {
                 }
 
             }
-
-            br.close();
         }
+        br.close();
         return null;
     }
  }
