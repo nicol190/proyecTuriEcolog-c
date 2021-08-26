@@ -34,7 +34,7 @@ public class MUsuario {
         this.usuario = usuario;
         this.password = password;
         this.telefono = telefono;
-      
+
     }
 
     public MUsuario() {
@@ -91,11 +91,9 @@ public class MUsuario {
         this.telefono = telefono;
     }
 
-    public boolean isIsAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
-
-    
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
