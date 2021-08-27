@@ -35,6 +35,38 @@ public class CDestinoAdministrador {
         this.urlTemp = this.directoryName + "/BASE DE DATOS PPI/DestinoTuristicoDocTemp.txt";
         
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrlTemp() {
+        return urlTemp;
+    }
+
+    public void setUrlTemp(String urlTemp) {
+        this.urlTemp = urlTemp;
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
+    public String getDirectoryName() {
+        return directoryName;
+    }
+
+    public void setDirectoryName(String directoryName) {
+        this.directoryName = directoryName;
+    }
     
     public LinkedList<MDestinoTuristico> obtenerLista() throws FileNotFoundException, IOException {
         LinkedList<MDestinoTuristico> lista = new LinkedList();
@@ -43,7 +75,7 @@ public class CDestinoAdministrador {
         String record;
 
         while ((record = reader.readLine()) != null) {
-            StringTokenizer st = new StringTokenizer(record, ",");
+            StringTokenizer st = new StringTokenizer(record, "|");
             lista.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Integer.parseInt(st.nextToken())));
 
         }
@@ -94,7 +126,7 @@ public boolean actualizarDestino(String codigo, String nombreDestino, String des
             bw.close();
     }
     
-public boolean eliminarDestino(String codigo, String nombreDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
+    public boolean eliminarDestino(String codigo, String nombreDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
         File archivoEntrada = new File (this.url);
         File archivoTemporal = new File(this.urlTemp);
 
@@ -119,39 +151,6 @@ public boolean eliminarDestino(String codigo, String nombreDestino, String descr
         reader.close();
         archivoEntrada.delete();
         return archivoTemporal.renameTo(archivoEntrada); //Renombrando el archivo temporal al nombre del de entrada para reemplazarlo
-    }
-
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUrlTemp() {
-        return urlTemp;
-    }
-
-    public void setUrlTemp(String urlTemp) {
-        this.urlTemp = urlTemp;
-    }
-
-    public Path getPath() {
-        return path;
-    }
-
-    public void setPath(Path path) {
-        this.path = path;
-    }
-
-    public String getDirectoryName() {
-        return directoryName;
-    }
-
-    public void setDirectoryName(String directoryName) {
-        this.directoryName = directoryName;
     }
 
 }

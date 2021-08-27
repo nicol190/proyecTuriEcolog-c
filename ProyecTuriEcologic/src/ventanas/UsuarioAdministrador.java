@@ -145,8 +145,9 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                 controlador.eliminarUsuario(this.modelo.getValueAt(filaSeleccionada, 0).toString(),
                                             this.modelo.getValueAt(filaSeleccionada, 1).toString(),
                                             this.modelo.getValueAt(filaSeleccionada, 2).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 3).toString().replace(".0", ""),
-                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().equals("Administrador"));
+                                            this.modelo.getValueAt(filaSeleccionada, 3).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""),
+                                            this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("Administrador"));
                 
                 
             }
@@ -164,14 +165,15 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             modelo.setValueAt(this.txCorreoElectronico.getText(), filaSeleccionada, 2);
             modelo.setValueAt(this.txNombreUsuario.getText(), filaSeleccionada, 3);
             modelo.setValueAt(this.txTelefono.getText(), filaSeleccionada, 4);
-            modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString(), filaSeleccionada, 4);
+            modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString(), filaSeleccionada, 5);
             
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.actualizarUsuario(modelo.getValueAt(filaSeleccionada, 0).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 1).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 2).toString(),
-                                        this.modelo.getValueAt(filaSeleccionada, 3).toString().replace(".0", ""),
-                                        this.modelo.getValueAt(filaSeleccionada, 4).toString());
+                                        this.modelo.getValueAt(filaSeleccionada, 3).toString(),
+                                        this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""),
+                                        this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("Administrador"));
         }else{
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");

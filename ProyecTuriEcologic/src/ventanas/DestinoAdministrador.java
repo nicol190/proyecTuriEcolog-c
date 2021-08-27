@@ -43,7 +43,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         
         LinkedList<MDestinoTuristico> listaDestinos = null;
         try {
-            listaDestinos = new CDestinoAdministrador().obtenerListaCola();
+            listaDestinos = new CDestinoAdministrador().obtenerLista();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
