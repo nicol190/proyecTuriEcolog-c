@@ -44,7 +44,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         
         LinkedList<MUsuario> listaUsuarios;
         CUsuarioAdministrador controlador = new CUsuarioAdministrador();
-        listaUsuarios = controlador.getLista(); //Hacer estatico
+        listaUsuarios = controlador.getLista();
         
         modelo = (DefaultTableModel)tablaUsuarios.getModel();
         Object[] objeto = new Object[6];
@@ -148,7 +148,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                                             this.modelo.getValueAt(filaSeleccionada, 2).toString(),
                                             this.modelo.getValueAt(filaSeleccionada, 3).toString(),
                                             this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""),
-                                            this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("Administrador"));
+                                            this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("true"));
                 
                 
             }
@@ -166,15 +166,15 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             modelo.setValueAt(this.txCorreoElectronico.getText(), filaSeleccionada, 2);
             modelo.setValueAt(this.txNombreUsuario.getText(), filaSeleccionada, 3);
             modelo.setValueAt(this.txTelefono.getText(), filaSeleccionada, 4);
-            modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString(), filaSeleccionada, 5);
+            modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString().equals("Administrador") ? "true":"false" , filaSeleccionada, 5);
             
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.actualizarUsuario(modelo.getValueAt(filaSeleccionada, 0).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 1).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 2).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 3).toString(),
-                                        this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""),
-                                        this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("Administrador"));
+                                        this.modelo.getValueAt(filaSeleccionada, 4).toString(),
+                                        this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("true"));
         }else{
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
@@ -320,7 +320,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -516,25 +516,25 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
 
     private void txApellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txApellidoFocusGained
         // TODO add your handling code here:
-        String placeHolderText = "Municipio";
+        String placeHolderText = "Apellido";
         this.createPlaceHolder(this.txApellido, placeHolderText);
     }//GEN-LAST:event_txApellidoFocusGained
 
     private void txApellidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txApellidoFocusLost
         // TODO add your handling code here:
-        String placeHolderText = "Municipio";
+        String placeHolderText = "Apellido";
         this.createPlaceHolder(this.txApellido, placeHolderText);
     }//GEN-LAST:event_txApellidoFocusLost
 
     private void txCorreoElectronicoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txCorreoElectronicoFocusGained
         // TODO add your handling code here:
-        String placeHolderText = "Tarifa";
+        String placeHolderText = "Correo Electronico";
         this.createPlaceHolder(this.txCorreoElectronico, placeHolderText);
     }//GEN-LAST:event_txCorreoElectronicoFocusGained
 
     private void txCorreoElectronicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txCorreoElectronicoFocusLost
         // TODO add your handling code here:
-        String placeHolderText = "Tarifa";
+        String placeHolderText = "Correo Electronico";
         this.createPlaceHolder(this.txCorreoElectronico, placeHolderText);
     }//GEN-LAST:event_txCorreoElectronicoFocusLost
 
@@ -550,7 +550,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         this.txCorreoElectronico.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
         this.txNombreUsuario.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
         this.txTelefono.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString());
-        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 4).toString().equals("Administrador") ? 0: 1);
+        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 4).toString().equals("Administrador") ? 1: 0);
     }//GEN-LAST:event_tablaUsuariosMouseClicked
 
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
@@ -564,18 +564,26 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
 
     private void txNombreUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txNombreUsuarioFocusGained
         // TODO add your handling code here:
+        String placeHolderText = "Nombre de Usuario";
+        this.createPlaceHolder(this.txCorreoElectronico, placeHolderText);
     }//GEN-LAST:event_txNombreUsuarioFocusGained
 
     private void txNombreUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txNombreUsuarioFocusLost
         // TODO add your handling code here:
+        String placeHolderText = "Nombre de Usuario";
+        this.createPlaceHolder(this.txCorreoElectronico, placeHolderText);
     }//GEN-LAST:event_txNombreUsuarioFocusLost
 
     private void txTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txTelefonoFocusGained
         // TODO add your handling code here:
+        String placeHolderText = "Telefono";
+        this.createPlaceHolder(this.txCorreoElectronico, placeHolderText);
     }//GEN-LAST:event_txTelefonoFocusGained
 
     private void txTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txTelefonoFocusLost
         // TODO add your handling code here:
+        String placeHolderText = "Telefono";
+        this.createPlaceHolder(this.txCorreoElectronico, placeHolderText);
     }//GEN-LAST:event_txTelefonoFocusLost
 
     private void txTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTelefonoActionPerformed

@@ -41,7 +41,7 @@ public class CUsuarioAdministrador {
             
             while ((record = reader.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(record, ",");
-                lista.add(new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken().substring(0,0), st.nextToken().equals("1")));
+                lista.add(new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken().substring(0,1), st.nextToken(), st.nextToken().equals("1")));
                 
             }
         }
@@ -58,15 +58,17 @@ public class CUsuarioAdministrador {
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
         
         String valorAdmin = isAdmin ? "1" : "0";
-
-        String lineaAActualizar = nombre + "," + apellido + "," + correo + "," + nombreUsuario + "," + telefono + "," + valorAdmin;
+        
         String lineaActual;
 
         while((lineaActual = reader.readLine()) != null) {
             // Recortando linea a los extremos para comparla con linea a actualizar. 
             String lineaRecortada = lineaActual.trim();
-            if(lineaRecortada.startsWith(nombre + "," + apellido + "," + correo)){
-                    writer.write(lineaAActualizar + System.getProperty("line.separator"));//Está borrando contraseñas
+            if(lineaRecortada.startsWith(nombre + "," + apellido)){//No se puede cambiar nombre ni apellido a menos que se use un id en la tabla.
+                    String[] passwordArray = lineaActual.split(",");
+                    String password = passwordArray[4];
+                    String lineaAActualizar = nombre + "," + apellido + "," + correo + "," + nombreUsuario + "," + password + "," + telefono + "," + valorAdmin;
+                    writer.write(lineaAActualizar + System.getProperty("line.separator"));
                     continue;
             } //Encuentra linea con ocurrencia y escribe el reemplazo en el archivo temporal.
             writer.write(lineaActual + System.getProperty("line.separator")); //linea + separador de linea.
@@ -80,7 +82,7 @@ public class CUsuarioAdministrador {
     public void agregarUsuario(MUsuario usuario) throws IOException {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.url, true));
             
-            String isAdminString = usuario.getIsAdmin() ? "1" : "2";
+            String isAdminString = usuario.getIsAdmin() ? "1" : "0";
             String linea = usuario.getNombre() + "," +
                     usuario.getApellido() + "," +
                     usuario.getCorreo() + "," +
@@ -95,31 +97,10 @@ public class CUsuarioAdministrador {
             bw.close();
     }
     
-    public boolean eliminarUsuario(String codigo, String nombreDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
-        File archivoEntrada = new File (this.url);
-        File archivoTemporal = new File(this.urlTemp);
-
-        BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
-
-        String lineaABorrar = codigo + "|" + nombreDestino + "|" + descripcion + "|" + municipio + "|" + tarifa;
-        String lineaActual;
-
-        while((lineaActual = reader.readLine()) != null) {
-            // Recortando linea a los extremos para comparla con linea a borrar. 
-            String lineaRecortada = lineaActual.trim();
-            System.out.println("A borrar:" + lineaABorrar);
-            System.out.println("Noborrar:" + lineaRecortada);
-            if(lineaRecortada.equals(lineaABorrar)){
-                System.out.println("Test");
-                    continue;
-            } //Omite la linea con ocurrencia y no la escribe en el archivo temporal
-            writer.write(lineaActual + System.getProperty("line.separator")); //Separador de lineas.
-        }
-        writer.close(); 
-        reader.close();
-        archivoEntrada.delete();
-        return archivoTemporal.renameTo(archivoEntrada); //Renombrando el archivo temporal al nombre del de entrada para reemplazarlo
+    public boolean eliminarUsuario() {
+        
+        return false;
+        
     }
 
 
