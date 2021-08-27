@@ -5,7 +5,7 @@
  */
 package ventanas;
 
-import Controladores.CDestinoAdministrador;
+import Controladores.CUsuarioAdministrador;
 import Modelos.MUsuario;
 import java.awt.Color;
 import java.awt.Component;
