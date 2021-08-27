@@ -43,7 +43,8 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         }
         
         LinkedList<MUsuario> listaUsuarios;
-        listaUsuarios = CUsuarioAdministrador.getLista(); //Hacer estatico
+        CUsuarioAdministrador controlador = new CUsuarioAdministrador();
+        listaUsuarios = controlador.getLista(); //Hacer estatico
         
         modelo = (DefaultTableModel)tablaUsuarios.getModel();
         Object[] objeto = new Object[6];

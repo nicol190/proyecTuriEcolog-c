@@ -33,15 +33,15 @@ public class CUsuarioAdministrador {
         
     }
     
-    public LinkedList<MDestinoTuristico> obtenerLista() throws FileNotFoundException, IOException {
-        LinkedList<MDestinoTuristico> lista = new LinkedList();
+    public LinkedList<MUsuario> getLista() throws FileNotFoundException, IOException {
+        LinkedList<MUsuario> lista = new LinkedList();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(url))) {
             String record;
             
             while ((record = reader.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(record, ",");
-                lista.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Integer.parseInt(st.nextToken())));
+                lista.add(new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken().substring(0,0), st.nextToken().equals("1")));
                 
             }
         }
@@ -80,11 +80,14 @@ public class CUsuarioAdministrador {
     public void agregarUsuario(MUsuario usuario) throws IOException {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.url, true));
             
-            String linea = destino.getCodigo() + "," +
-                    destino.getNombreDestino() + "," +
-                    destino.getDescripcion() + "," +
-                    destino.getMunicipio() + "," +
-                    destino.getTarifa();
+            String isAdminString = usuario.getIsAdmin() ? "1" : "2";
+            String linea = usuario.getNombre() + "," +
+                    usuario.getApellido() + "," +
+                    usuario.getCorreo() + "," +
+                    usuario.getUsuario() + "," +
+                    usuario.getTelefono() + "," +
+                    usuario.getPassword() + "," +
+                    isAdminString;
             
             bw.write(linea);
             bw.flush();
