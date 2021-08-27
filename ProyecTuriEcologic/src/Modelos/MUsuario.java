@@ -27,7 +27,7 @@ public class MUsuario {
     private String telefono;
     private boolean isAdmin;
 
-    public MUsuario(String nombre, String apellido, String correo, String telefono,String usuario, String password) {
+    public MUsuario(String nombre, String apellido, String correo,String usuario, String password, String telefono, boolean isAdmin) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
@@ -103,7 +103,12 @@ public class MUsuario {
 
     
       public String prepararInformacion(){
-        String informacion = nombre +"," + apellido + "," + correo + "," + telefono + "," + usuario + "," + password ;
+          String informacion;
+        if (isAdmin == true){
+            informacion = nombre +"," + apellido + "," + correo + "," + telefono + "," + usuario + "," + password + "," + "1" ;
+        }else{
+            informacion = nombre +"," + apellido + "," + correo + "," + telefono + "," + usuario + "," + password + "," + "0" ;
+        }
         return informacion;
         
     }

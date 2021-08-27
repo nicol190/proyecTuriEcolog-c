@@ -58,6 +58,7 @@ public class CRegistrarUsuario {
             
         while ((record = br.readLine()) != null) {
               StringTokenizer st = new StringTokenizer(record, ",");
+             
               MUsuario usuarioBusqueda = new MUsuario(st.nextToken(),st.nextToken(),st.nextToken(),st.nextToken(),st.nextToken(),st.nextToken());
               String isAdmin =st.nextToken();
               if(isAdmin.equals("1")){
