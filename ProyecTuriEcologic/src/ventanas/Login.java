@@ -199,7 +199,7 @@ public class Login extends javax.swing.JFrame {
             try {
                 MUsuario busquedaU = controladorRegistrar.buscarUsuario(usuario, password);
                 if (busquedaU != null){
-                    if (busquedaU.isIsAdmin()== true){
+                    if (busquedaU.getIsAdmin()== true){
                         DestinoAdministrador DA = new DestinoAdministrador();
                         DA.setVisible(true);
                         dispose();

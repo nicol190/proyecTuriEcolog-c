@@ -25,12 +25,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author pipe_
  */
-public class UsuarioAdministrador1 extends javax.swing.JFrame {
+public class UsuarioAdministrador extends javax.swing.JFrame {
     DefaultTableModel modelo;//modelo para ser insertado en la tabla.
     /**
      * Creates new form DestinosAdministrador
      */
-    public UsuarioAdministrador1() throws IOException {
+    public UsuarioAdministrador() throws IOException {
         initComponents();
         modelo = new DefaultTableModel();
         this.listar();
@@ -68,6 +68,7 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
     }
     
     int crear() throws IOException{
+        //Vista
         Component frame = new JFrame();
         if (this.isEmpty(this.txNombre) || 
             this.isEmpty(this.txApellido) ||
@@ -77,7 +78,6 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(frame, "Todos los campos son obligatorios");
         }else{
-            int codigo = tablaUsuarios.getRowCount() + 1;
             String nombre = txNombre.getText();
             String apellido = txApellido.getText();
             String correo = txCorreoElectronico.getText();
@@ -112,18 +112,18 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
                 return 0;
             }
             
-            Object[] fila = new Object[5]; //Fila para agregar al modelo de la tabla.
-            fila[0] = codigo;  
-            fila[1] = nombreDestinoTXT;
-            fila[2] = descripcionTXT;
-            fila[3] = municipioTXT;
-            fila[4] = tarifaTXT;
-            //fila[?] foto sin implementar.
+            Object[] fila = new Object[6]; //Fila para agregar al modelo de la tabla.
+            fila[0] = nombre;  
+            fila[1] = apellido;
+            fila[2] = correo;
+            fila[3] = nombreUsuario;
+            fila[4] = telefono;
+            fila[5] = isAdmin ? "Administrador" : "Usuario Corriente";
 
             modelo.addRow(fila);//Agregando nueva fila.
             
             //Controlador
-            MUsuario usuario = new MUsuario(nombre, apellido, correo, telefono, nombreUsuario, new String(password));
+            MUsuario usuario = new MUsuario(nombre, apellido, correo,nombreUsuario, new String(password), telefono, isAdmin);
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.agregarUsuario(usuario);
         }
@@ -134,17 +134,21 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
         int filaSeleccionada = this.tablaUsuarios.getSelectedRow();
         JFrame frame = new JFrame();
         if (filaSeleccionada >= 0){
-            int seleccion = JOptionPane.showConfirmDialog(frame, "¿Está seguro de que desea eliminar el destino " + (filaSeleccionada + 1) + " ?");
+            int seleccion = JOptionPane.showConfirmDialog(frame, "¿Está seguro de que desea eliminar el Usuario " + (this.modelo.getValueAt(filaSeleccionada, 0).toString()) + " ?");
             if (seleccion != 0){//Selecciona diferente de SI.
             }else{//Selecciona SI:
-                CDestinoAdministrador controlador = new CDestinoAdministrador();
-                controlador.eliminarDestino(this.modelo.getValueAt(filaSeleccionada, 0).toString(),
+                //Vista
+                this.modelo.removeRow(seleccion);
+                //Conexión con el controlador.
+                
+                CUsuarioAdministrador controlador = new CUsuarioAdministrador();
+                controlador.eliminarUsuario(this.modelo.getValueAt(filaSeleccionada, 0).toString(),
                                             this.modelo.getValueAt(filaSeleccionada, 1).toString(),
                                             this.modelo.getValueAt(filaSeleccionada, 2).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 3).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
+                                            this.modelo.getValueAt(filaSeleccionada, 3).toString().replace(".0", ""),
+                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().equals("Administrador"));
                 
-                this.modelo.removeRow(seleccion);
+                
             }
         }else{
             JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
@@ -155,17 +159,22 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
         int filaSeleccionada = this.tablaUsuarios.getSelectedRow();
         
         if (filaSeleccionada >= 0){
-            modelo.setValueAt(this.txNombre.getText(), filaSeleccionada, 1);
-            modelo.setValueAt(this.txDescripcion.getText(), filaSeleccionada, 2);
-            modelo.setValueAt(this.txApellido.getText(), filaSeleccionada, 3);
-            modelo.setValueAt(this.txCorreoElectronico.getText(), filaSeleccionada, 4);
+            modelo.setValueAt(this.txNombre.getText(), filaSeleccionada, 0);
+            modelo.setValueAt(this.txApellido.getText(), filaSeleccionada, 1);
+            modelo.setValueAt(this.txCorreoElectronico.getText(), filaSeleccionada, 2);
+            modelo.setValueAt(this.txNombreUsuario.getText(), filaSeleccionada, 3);
+            modelo.setValueAt(this.txTelefono.getText(), filaSeleccionada, 4);
+            modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString(), filaSeleccionada, 4);
             
-            CDestinoAdministrador controlador = new CDestinoAdministrador();
-            controlador.actualizarDestino(modelo.getValueAt(filaSeleccionada, 0).toString(),
+            CUsuarioAdministrador controlador = new CUsuarioAdministrador();
+            controlador.actualizarUsuario(modelo.getValueAt(filaSeleccionada, 0).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 1).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 2).toString(),
-                                        this.modelo.getValueAt(filaSeleccionada, 3).toString(),
-                                        this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
+                                        this.modelo.getValueAt(filaSeleccionada, 3).toString().replace(".0", ""),
+                                        this.modelo.getValueAt(filaSeleccionada, 4).toString());
+        }else{
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
         }
     }
 
@@ -459,7 +468,7 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
             // TODO add your handling code here:
             this.crear();
         } catch (IOException ex) {
-            Logger.getLogger(UsuarioAdministrador1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BotonCrearActionPerformed
 
@@ -468,7 +477,7 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
             // TODO add your handling code here:
             this.eliminar();
         } catch (IOException ex) {
-            Logger.getLogger(UsuarioAdministrador1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
@@ -477,7 +486,7 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
             // TODO add your handling code here:
             this.listar();
         } catch (IOException ex) {
-            Logger.getLogger(UsuarioAdministrador1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BotonListarActionPerformed
 
@@ -533,10 +542,12 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
     private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
         // TODO add your handling code here:
         int filaSeleccionada = this.tablaUsuarios.getSelectedRow();
-        this.txNombre.setText(this.modelo.getValueAt(filaSeleccionada, 1).toString());
-        this.txDescripcion.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
-        this.txApellido.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
-        this.txCorreoElectronico.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString());
+        this.txNombre.setText(this.modelo.getValueAt(filaSeleccionada, 0).toString());
+        this.txApellido.setText(this.modelo.getValueAt(filaSeleccionada, 1).toString());
+        this.txCorreoElectronico.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
+        this.txNombreUsuario.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
+        this.txTelefono.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString());
+        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 4).toString().equals("Administrador") ? 0: 1);
     }//GEN-LAST:event_tablaUsuariosMouseClicked
 
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
@@ -544,7 +555,7 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
             // TODO add your handling code here:
             this.actualizar();
         } catch (IOException ex) {
-            Logger.getLogger(UsuarioAdministrador1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonActualizarActionPerformed
 
@@ -585,14 +596,18 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UsuarioAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UsuarioAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UsuarioAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UsuarioAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -602,9 +617,9 @@ public class UsuarioAdministrador1 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new UsuarioAdministrador1().setVisible(true);
+                    new UsuarioAdministrador().setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(UsuarioAdministrador1.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

@@ -27,14 +27,14 @@ public class MUsuario {
     private String telefono;
     private boolean isAdmin;
 
-    public MUsuario(String nombre, String apellido, String correo, String telefono,String usuario, String password) {
+    public MUsuario(String nombre, String apellido, String correo,String usuario, String password, String telefono, boolean isAdmin) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.usuario = usuario;
         this.password = password;
         this.telefono = telefono;
-
+        this.isAdmin = isAdmin;
     }
 
     public MUsuario() {
