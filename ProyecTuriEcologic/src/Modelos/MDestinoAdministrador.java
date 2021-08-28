@@ -24,7 +24,7 @@ public class MDestinoAdministrador {
         this.municipio = municipio;
         this.tarifa = tarifa;
     }
-  
+
     public int getCodigo() {
         return codigo;
     }
