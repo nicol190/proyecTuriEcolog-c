@@ -5,12 +5,6 @@
  */
 package Modelos;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 /**
  *
  * @author pipe_
@@ -27,18 +21,23 @@ public class MUsuario {
     private String telefono;
     private boolean isAdmin;
 
-    public MUsuario(String nombre, String apellido, String correo,String telefono,String usuario, String password ) {
+    public MUsuario(String nombre, String apellido, String correo,String telefono,String usuario, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
+        this.telefono = telefono;
         this.usuario = usuario;
         this.password = password;
-        this.telefono = telefono;
-       
     }
 
-    public MUsuario() {
-       
+    public MUsuario(String nombre, String apellido, String correo,String telefono,String usuario, String password, boolean isAdmin) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.usuario = usuario;
+        this.password = password;
+        this.isAdmin = isAdmin;
     }
     
     
