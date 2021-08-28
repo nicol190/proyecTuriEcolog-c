@@ -41,7 +41,9 @@ public class CUsuarioAdministrador {
             
             while ((record = reader.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(record, ",");
-                lista.add(new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken().substring(0,1), st.nextToken(), st.nextToken().equals("1")));
+                MUsuario usuarioA  = new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken().substring(0,1), st.nextToken());
+                usuarioA.setIsAdmin(st.nextToken().equals("1"));
+                lista.add(usuarioA);
                 
             }
         }
@@ -82,7 +84,7 @@ public class CUsuarioAdministrador {
     public void agregarUsuario(MUsuario usuario) throws IOException {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.url, true));
             
-            String isAdminString = usuario.getIsAdmin() ? "1" : "0";
+            String isAdminString = usuario.isIsAdmin() ? "1" : "0";
             String linea = usuario.getNombre() + "," +
                     usuario.getApellido() + "," +
                     usuario.getCorreo() + "," +

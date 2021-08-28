@@ -27,7 +27,7 @@ public class MUsuario {
     private String telefono;
     private boolean isAdmin;
 
-    public MUsuario(String nombre, String apellido, String correo,String usuario, String password, String telefono, boolean isAdmin) {
+    public MUsuario(String nombre, String apellido, String correo,String telefono,String usuario, String password ) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;

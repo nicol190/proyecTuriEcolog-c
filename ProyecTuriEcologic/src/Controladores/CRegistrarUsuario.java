@@ -67,7 +67,7 @@ public class CRegistrarUsuario {
               }else{
                   usuarioBusqueda.setIsAdmin(false);
               }
-              if (usuarioBusqueda.getUsuario().equals(usuario)&& usuarioBusqueda.getPassword().equals(password)){
+              if (usuarioBusqueda.getUsuario().equals(usuario) && usuarioBusqueda.getPassword().equals(password)){
                   return usuarioBusqueda;
               }
         }

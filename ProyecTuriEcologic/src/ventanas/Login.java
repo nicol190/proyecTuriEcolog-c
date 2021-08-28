@@ -221,6 +221,7 @@ public class Login extends javax.swing.JFrame {
                 if (busquedaU != null){
                     if (busquedaU.isIsAdmin()== true){
                         DestinoAdministrador DA = new DestinoAdministrador();
+                        //UsuarioAdministrador DA = new UsuarioAdministrador();
                         DA.setVisible(true);
                         dispose();
                     }else{

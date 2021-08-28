@@ -55,7 +55,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             objeto[2] = listaUsuarios.get(i).getCorreo();
             objeto[3] = listaUsuarios.get(i).getUsuario();
             objeto[4] = listaUsuarios.get(i).getTelefono();
-            objeto[5] = listaUsuarios.get(i).getIsAdmin();
+            objeto[5] = listaUsuarios.get(i).isIsAdmin();
           
             modelo.addRow(objeto); //Añadiendo las celdas de cada fila del modelo.
         }
@@ -124,7 +124,8 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             modelo.addRow(fila);//Agregando nueva fila.
             
             //Controlador
-            MUsuario usuario = new MUsuario(nombre, apellido, correo,nombreUsuario, new String(password), telefono, isAdmin);
+            MUsuario usuario = new MUsuario(nombre, apellido, correo,nombreUsuario, new String(password), telefono);
+            usuario.setIsAdmin(isAdmin);
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.agregarUsuario(usuario);
         }
@@ -218,7 +219,6 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
 
         BotonCrear = new javax.swing.JButton();
         botonActualizar = new javax.swing.JButton();
-        BotonListar = new javax.swing.JButton();
         BotonEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -231,6 +231,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         txNombreUsuario = new javax.swing.JTextField();
         txTelefono = new javax.swing.JTextField();
         ComboBoxIsAdmin = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -245,13 +246,6 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         botonActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonActualizarActionPerformed(evt);
-            }
-        });
-
-        BotonListar.setText("Listar");
-        BotonListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonListarActionPerformed(evt);
             }
         });
 
@@ -390,6 +384,8 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
 
         ComboBoxIsAdmin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario corriente", "Administrador" }));
 
+        jButton1.setText("Buscar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -408,7 +404,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BotonCrear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonListar)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -456,10 +452,10 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                     .addComponent(ComboBoxIsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonListar)
                     .addComponent(botonActualizar)
                     .addComponent(BotonEliminar)
-                    .addComponent(BotonCrear))
+                    .addComponent(BotonCrear)
+                    .addComponent(jButton1))
                 .addGap(23, 23, 23))
         );
 
@@ -483,15 +479,6 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
-
-    private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
-        try {
-            // TODO add your handling code here:
-            this.listar();
-        } catch (IOException ex) {
-            Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_BotonListarActionPerformed
 
     private void txNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNombreActionPerformed
         // TODO add your handling code here:
@@ -640,9 +627,9 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton BotonCerrarSesión;
     private javax.swing.JButton BotonCrear;
     private javax.swing.JButton BotonEliminar;
-    private javax.swing.JButton BotonListar;
     private javax.swing.JComboBox<String> ComboBoxIsAdmin;
     private javax.swing.JButton botonActualizar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;

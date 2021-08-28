@@ -75,9 +75,10 @@ public class CDestinoAdministrador {
         String record;
 
         while ((record = reader.readLine()) != null) {
-            StringTokenizer st = new StringTokenizer(record, "|");
-            lista.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Integer.parseInt(st.nextToken())));
-
+            StringTokenizer st = new StringTokenizer(record, ",");
+            MDestinoTuristico turisticoAdministrador = new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.valueOf(st.nextToken()));
+            lista.add(turisticoAdministrador);
+            
         }
 
         reader.close();
@@ -93,7 +94,7 @@ public boolean actualizarDestino(String codigo, String nombreDestino, String des
         BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
 
-        String lineaAActualizar = codigo + "|" + nombreDestino + "|" + descripcion + "|" + municipio + "|" + tarifa;
+        String lineaAActualizar = codigo + "," + nombreDestino + "," + descripcion + "," + municipio + "," + tarifa;
         String lineaActual;
 
         while((lineaActual = reader.readLine()) != null) {
@@ -114,10 +115,10 @@ public boolean actualizarDestino(String codigo, String nombreDestino, String des
     public void agregarDestino(MDestinoAdministrador destino) throws IOException {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.url, true));
             
-            String linea = destino.getCodigo() + "|" +
-                    destino.getNombreDestino() + "|" +
-                    destino.getDescripcion() + "|" +
-                    destino.getMunicipio() + "|" +
+            String linea = destino.getCodigo() + "," +
+                    destino.getNombreDestino() + "," +
+                    destino.getDescripcion() + "," +
+                    destino.getMunicipio() + "," +
                     destino.getTarifa();
             
             bw.write(linea);
@@ -133,7 +134,7 @@ public boolean actualizarDestino(String codigo, String nombreDestino, String des
         BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
 
-        String lineaABorrar = codigo + "|" + nombreDestino + "|" + descripcion + "|" + municipio + "|" + tarifa;
+        String lineaABorrar = codigo + "," + nombreDestino + "," + descripcion + "," + municipio + "," + tarifa;
         String lineaActual;
 
         while((lineaActual = reader.readLine()) != null) {

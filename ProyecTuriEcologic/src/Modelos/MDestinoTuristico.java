@@ -24,13 +24,13 @@ public class MDestinoTuristico {
         
     }
 
-    public MDestinoTuristico(int codigo, String nombreDestino, String descripcion, String municipio, float tarifa, String foto) {
+    public MDestinoTuristico(int codigo, String nombreDestino, String descripcion, String municipio, float tarifa) {
         this.codigo = codigo;
         this.nombreDestino = nombreDestino;
         this.descripcion = descripcion;
         this.municipio = municipio;
         this.tarifa = tarifa;
-        this.foto = foto;
+        //this.foto = foto;
     }
 
     public int getCodigo() {
@@ -73,19 +73,13 @@ public class MDestinoTuristico {
         this.tarifa = tarifa;
     }
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
+   
   
     
     public String prepararInformacion(){
         String informacion;
      
-        informacion = String.valueOf(codigo) +"," + nombreDestino + "," + descripcion + "," + municipio + "," + String.valueOf(tarifa) + "," + foto ;
+        informacion = String.valueOf(codigo) +"," + nombreDestino + "," + descripcion + "," + municipio + "," + String.valueOf(tarifa) ;
         return informacion;
         }
 
