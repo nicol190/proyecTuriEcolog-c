@@ -138,8 +138,4 @@ public class CUsuarioAdministrador {
         this.directoryName = directoryName;
     }
 
-    public void eliminarUsuario(String toString, String toString0, String toString1, String toString2, String replace, boolean equals) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
