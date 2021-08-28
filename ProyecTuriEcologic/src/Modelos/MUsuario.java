@@ -16,28 +16,32 @@ public class MUsuario {
     private String nombre;
     private String apellido;
     private String correo;
-    private String usuario;
+    private String nombreUsuario;
     private String password;
     private String telefono;
     private boolean isAdmin;
 
-    public MUsuario(String nombre, String apellido, String correo,String telefono,String usuario, String password) {
+    public MUsuario(String nombre, String apellido, String correo,String telefono,String nombreUsuario, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.telefono = telefono;
-        this.usuario = usuario;
+        this.nombreUsuario = nombreUsuario;
         this.password = password;
     }
 
-    public MUsuario(String nombre, String apellido, String correo,String telefono,String usuario, String password, boolean isAdmin) {
+    public MUsuario(String nombre, String apellido, String correo,String telefono,String nombreUsuario, String password, boolean isAdmin) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.telefono = telefono;
-        this.usuario = usuario;
+        this.nombreUsuario = nombreUsuario;
         this.password = password;
         this.isAdmin = isAdmin;
+    }
+    
+    public MUsuario(){
+        
     }
     
     
@@ -67,11 +71,11 @@ public class MUsuario {
     }
 
     public String getUsuario() {
-        return usuario;
+        return this.nombreUsuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getPassword() {
@@ -104,9 +108,9 @@ public class MUsuario {
       public String prepararInformacion(){
           String informacion;
         if (isAdmin == true){
-            informacion = nombre +"," + apellido + "," + correo + "," + telefono + "," + usuario + "," + password + "," + "1" ;
+            informacion = nombre +"," + apellido + "," + correo + "," + telefono + "," + nombreUsuario + "," + password + "," + "1" ;
         }else{
-            informacion = nombre +"," + apellido + "," + correo + "," + telefono + "," + usuario + "," + password + "," + "0" ;
+            informacion = nombre +"," + apellido + "," + correo + "," + telefono + "," + nombreUsuario + "," + password + "," + "0" ;
         }
         return informacion;
         

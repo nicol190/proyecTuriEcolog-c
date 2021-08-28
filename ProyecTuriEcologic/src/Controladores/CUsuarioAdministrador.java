@@ -1,7 +1,5 @@
 package Controladores;
 
-import Modelos.MDestinoAdministrador;
-import Modelos.MDestinoTuristico;
 import Modelos.MUsuario;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -99,12 +97,29 @@ public class CUsuarioAdministrador {
             bw.close();
     }
     
-    public boolean eliminarUsuario() {
+    public boolean eliminarUsuario(String nombre, String apellido, String correo, String nombreUsuario, String telefono, boolean isAdmin) throws FileNotFoundException, IOException {
+        File archivoEntrada = new File (this.url);
+        File archivoTemporal = new File(this.urlTemp);
+
+        BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
         
-        return false;
+        String lineaActual;
+
+        while((lineaActual = reader.readLine()) != null) {
+            // Recortando linea a los extremos para comparla con linea a borrar. 
+            String lineaRecortada = lineaActual.trim();
+            if(lineaRecortada.startsWith(nombre + "," + apellido + "," + correo)){//Nombres y apellidos del usuario coinciden.
+                    continue;
+            } //Encuentra linea con ocurrencia y la omite en el archivo temporal
+            writer.write(lineaActual + System.getProperty("line.separator")); //linea + separador de linea.
+        }
+        writer.close(); 
+        reader.close();
+        archivoEntrada.delete(); //Borrando archivo original.
+        return archivoTemporal.renameTo(archivoEntrada); //Renombrando el archivo temporal al nombre del de entrada para reemplazarlo
         
     }
-
 
     public String getUrl() {
         return url;

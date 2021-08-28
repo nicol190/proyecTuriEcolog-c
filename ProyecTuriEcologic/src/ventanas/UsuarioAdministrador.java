@@ -139,19 +139,18 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             int seleccion = JOptionPane.showConfirmDialog(frame, "¿Está seguro de que desea eliminar el Usuario " + (this.modelo.getValueAt(filaSeleccionada, 0).toString()) + " ?");
             if (seleccion != 0){//Selecciona diferente de SI.
             }else{//Selecciona SI:
-                //Vista
-                this.modelo.removeRow(seleccion);
                 //Conexión con el controlador.
                 
                 CUsuarioAdministrador controlador = new CUsuarioAdministrador();
-                controlador.eliminarUsuario(this.modelo.getValueAt(filaSeleccionada, 0).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 1).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 2).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 3).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""),
-                                            this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("true"));
+                controlador.eliminarUsuario(this.modelo.getValueAt(filaSeleccionada, 0).toString(),//Nombre
+                                            this.modelo.getValueAt(filaSeleccionada, 1).toString(),//Apellido
+                                            this.modelo.getValueAt(filaSeleccionada, 2).toString(),//Correo
+                                            this.modelo.getValueAt(filaSeleccionada, 3).toString(),//Nombre Usuario
+                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""),//Telefono
+                                            this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("true"));//Is Admin
                 
-                
+                //Vista
+                this.modelo.removeRow(filaSeleccionada);
             }
         }else{
             JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
@@ -536,8 +535,8 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         this.txApellido.setText(this.modelo.getValueAt(filaSeleccionada, 1).toString());
         this.txCorreoElectronico.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
         this.txNombreUsuario.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
-        this.txTelefono.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString());
-        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 4).toString().equals("Administrador") ? 1: 0);
+        this.txTelefono.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
+        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("Administrador") ? 1: 0);
     }//GEN-LAST:event_tablaUsuariosMouseClicked
 
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
