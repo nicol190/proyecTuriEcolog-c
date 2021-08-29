@@ -177,7 +177,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     
     public void actualizar() throws IOException{
         int filaSeleccionada = this.tablaUsuarios.getSelectedRow();
-        
+        //Vista
         if (filaSeleccionada >= 0){
             modelo.setValueAt(this.txNombre.getText(), filaSeleccionada, 0);
             modelo.setValueAt(this.txApellido.getText(), filaSeleccionada, 1);
@@ -186,6 +186,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             modelo.setValueAt(this.txTelefono.getText(), filaSeleccionada, 4);
             modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString().equals("Administrador") ? "true":"false" , filaSeleccionada, 5);
             
+            //Controlador
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.actualizarUsuario(modelo.getValueAt(filaSeleccionada, 0).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 1).toString(),
@@ -380,6 +381,11 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txNombreUsuarioFocusLost(evt);
+            }
+        });
+        txNombreUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txNombreUsuarioActionPerformed(evt);
             }
         });
 
@@ -616,6 +622,10 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     private void ComboBoxIsAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxIsAdminActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxIsAdminActionPerformed
+
+    private void txNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNombreUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txNombreUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
