@@ -66,8 +66,8 @@ public class CUsuarioAdministrador {
             String lineaRecortada = lineaActual.trim();
             if(lineaRecortada.startsWith(nombre + "," + apellido)){//No se puede cambiar nombre ni apellido a menos que se use un id en la tabla.
                     String[] passwordArray = lineaActual.split(",");
-                    String password = passwordArray[4];
-                    String lineaAActualizar = nombre + "," + apellido + "," + correo + "," + nombreUsuario + "," + password + "," + telefono + "," + valorAdmin;
+                    String password = passwordArray[5];
+                    String lineaAActualizar = nombre + "," + apellido + "," + correo + "," + telefono + "," + nombreUsuario + "," + password + "," + valorAdmin;
                     writer.write(lineaAActualizar + System.getProperty("line.separator"));
                     continue;
             } //Encuentra linea con ocurrencia y escribe el reemplazo en el archivo temporal.

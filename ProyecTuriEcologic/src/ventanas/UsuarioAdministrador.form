@@ -271,6 +271,7 @@
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txNombreUsuarioFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txNombreUsuarioFocusLost"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txNombreUsuarioActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txTelefono">
