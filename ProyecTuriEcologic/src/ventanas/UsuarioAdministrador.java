@@ -400,6 +400,11 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         });
 
         ComboBoxIsAdmin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario corriente", "Administrador" }));
+        ComboBoxIsAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxIsAdminActionPerformed(evt);
+            }
+        });
 
         txBuscar.setText("Buscar");
         txBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -559,7 +564,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         this.txCorreoElectronico.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
         this.txNombreUsuario.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
         this.txTelefono.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
-        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("Administrador") ? 1: 0);
+        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("true") ? 1: 0);
     }//GEN-LAST:event_tablaUsuariosMouseClicked
 
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
@@ -607,6 +612,10 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_txBuscarActionPerformed
+
+    private void ComboBoxIsAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxIsAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxIsAdminActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,2 +1,2 @@
 Daniel,Giraldo,Dgiraldo@gmail.com,345678,Dgiraldo,1234,1
-nicol,bernal,nikiber@gmail.com,345678,nbernal,1234,0
+nicol,bernal,nikiber@gmail.com,nbernal,nbernal,nbernal,1
