@@ -1,5 +1,5 @@
-1,Cañon del rio claro,Reserva natural su nombre se da por el esplendoroso rio que recorrer entre las formaciones de rocas y cañones pedregosa,entre san Francisco,180.000
-2,parque del cafe,atraccione mecanicas,montenegro,70000
-3,nevado del ruiz,volcan activo,santa rosa,90.000
-4,piedra el peñol,represa,guatape,25.000
-4,parque arvi, parque natural para senderismo ,santa elena,90000
+1,Cañon de Rio Claro,Reserva natural su nombre se da por el esplendoroso rio que recorrer entre las formaciones de rocas y cañones pedregosa,Entre San Francisco,180000
+2,Parque del cafe,Atracciones mecanicas,Montenegro,70000
+3,Nevado del Ruíz,Volcan activo,Santa Rosa,90000
+4,Parque Arví,Parque natural para senderismo.,Santa Elena,90000
+5,Piedra del Peñol,Represa,Guatapé,90000
