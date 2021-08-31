@@ -118,25 +118,21 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         return 1;
     }
     
-    public void eliminar() throws IOException {
-        int filaSeleccionada = this.tablaDestinos.getSelectedRow();
-        JFrame frame = new JFrame();
-        if (filaSeleccionada >= 0){
-            int seleccion = JOptionPane.showConfirmDialog(frame, "¿Está seguro de que desea eliminar el destino " + (filaSeleccionada + 1) + " ?");
-            if (seleccion != 0){//Selecciona diferente de SI.
-            }else{//Selecciona SI:
-                CDestinoAdministrador controlador = new CDestinoAdministrador();
-                controlador.eliminarDestino(this.modelo.getValueAt(filaSeleccionada, 0).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 1).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 2).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 3).toString(),
-                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
-                
-                this.modelo.removeRow(filaSeleccionada);
+    public boolean buscar() {
+        //Vista
+        String nombreOID = JOptionPane.showInputDialog("Ingrese ID o nombre del destino:").toLowerCase();
+        
+        for (int i = 0; i < modelo.getRowCount(); i++){
+            String ID = this.modelo.getValueAt(i, 0).toString().toLowerCase();
+            String nombreDestino = this.modelo.getValueAt(i, 1).toString().toLowerCase();
+            
+            if (nombreOID.equals(ID) || nombreOID.equals(nombreDestino)){
+                //this.tablaUsuarios.removeRowSelectionInterval();
+                this.tablaDestinos.setRowSelectionInterval(i, i);
+                return true;
             }
-        }else{
-            JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
         }
+        return false;
     }
     
     public void actualizar() throws IOException{
@@ -165,8 +161,28 @@ public class DestinoAdministrador extends javax.swing.JFrame {
                                         this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
         }
     }
-
     
+    public void eliminar() throws IOException {
+        int filaSeleccionada = this.tablaDestinos.getSelectedRow();
+        JFrame frame = new JFrame();
+        if (filaSeleccionada >= 0){
+            int seleccion = JOptionPane.showConfirmDialog(frame, "¿Está seguro de que desea eliminar el destino " + (filaSeleccionada + 1) + " ?");
+            if (seleccion != 0){//Selecciona diferente de SI.
+            }else{//Selecciona SI:
+                CDestinoAdministrador controlador = new CDestinoAdministrador();
+                controlador.eliminarDestino(this.modelo.getValueAt(filaSeleccionada, 0).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 1).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 2).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 3).toString(),
+                                            this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
+                
+                this.modelo.removeRow(filaSeleccionada);
+            }
+        }else{
+            JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
+        }
+    }
+
     void cerrarSesion(){
         Component frame = new JFrame();
         int confirmacion = JOptionPane.showConfirmDialog(frame, "¿Desea cerrar sesión?");
@@ -431,12 +447,8 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
-         try {
-            // TODO add your handling code here:
-            this.listar();
-        } catch (IOException ex) {
-            Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        this.buscar();
     }//GEN-LAST:event_BotonBuscarActionPerformed
 
     private void BotonCerrarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesiónActionPerformed
