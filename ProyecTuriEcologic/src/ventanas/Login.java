@@ -46,7 +46,7 @@ public class Login extends javax.swing.JFrame {
         usuario = new javax.swing.JLabel();
         txPassword = new javax.swing.JPasswordField();
         contraseña = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        BotonIngresar = new javax.swing.JButton();
         txBotonRegistrarse = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -97,16 +97,16 @@ public class Login extends javax.swing.JFrame {
         contraseña.setFont(new java.awt.Font("Source Serif Pro Semibold", 0, 14)); // NOI18N
         contraseña.setText("Contraseña");
 
-        jButton1.setFont(new java.awt.Font("Source Serif Pro Semibold", 0, 14)); // NOI18N
-        jButton1.setText("Ingresar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        BotonIngresar.setFont(new java.awt.Font("Source Serif Pro Semibold", 0, 14)); // NOI18N
+        BotonIngresar.setText("Ingresar");
+        BotonIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                BotonIngresarMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BotonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BotonIngresarActionPerformed(evt);
             }
         });
 
@@ -127,19 +127,20 @@ public class Login extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(130, 130, 130))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(0, 107, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txBotonRegistrarse)
-                    .addComponent(txPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contraseña)
-                    .addComponent(usuario)
-                    .addComponent(txnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(93, 93, 93))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txBotonRegistrarse)
+                            .addComponent(txPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contraseña)
+                            .addComponent(usuario)
+                            .addComponent(txnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(93, 93, 93))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(BotonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(129, 129, 129))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,8 +154,8 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(26, 26, 26)
+                .addComponent(BotonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(txBotonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -206,7 +207,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txnombreDeUsuarioActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
         if (txnombreDeUsuario.getText().isEmpty() || txPassword.getText().isEmpty()){
            
             
@@ -220,8 +221,9 @@ public class Login extends javax.swing.JFrame {
                 MUsuario busquedaU = controladorRegistrar.buscarUsuario(usuario, password);
                 if (busquedaU != null){
                     if (busquedaU.isIsAdmin()== true){
-                        DestinoAdministrador DA = new DestinoAdministrador();
+                        //DestinoAdministrador DA = new DestinoAdministrador();
                         //UsuarioAdministrador DA = new UsuarioAdministrador();
+                        OpcionAdministrador DA = new OpcionAdministrador();
                         DA.setVisible(true);
                         dispose();
                     }else{
@@ -247,7 +249,7 @@ public class Login extends javax.swing.JFrame {
         }
       
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BotonIngresarActionPerformed
 
     private void txBotonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txBotonRegistrarseActionPerformed
         
@@ -263,10 +265,10 @@ public class Login extends javax.swing.JFrame {
        
     }//GEN-LAST:event_txPasswordActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void BotonIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonIngresarMouseClicked
         
         
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_BotonIngresarMouseClicked
 
     
     private void txBotonRegistrarseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txBotonRegistrarseMouseClicked
@@ -313,8 +315,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonIngresar;
     private javax.swing.JLabel contraseña;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
