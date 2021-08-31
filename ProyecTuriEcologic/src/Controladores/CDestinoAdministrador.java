@@ -87,20 +87,20 @@ public class CDestinoAdministrador {
 
     }
     
-public boolean actualizarDestino(String codigo, String nombreDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
+public boolean actualizarDestino(String[] codigos, String[] nombresDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
         File archivoEntrada = new File (this.url);
         File archivoTemporal = new File(this.urlTemp);
 
         BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
 
-        String lineaAActualizar = codigo + "," + nombreDestino + "," + descripcion + "," + municipio + "," + tarifa;
+        String lineaAActualizar = codigos[1] + "," + nombresDestino[1] + "," + descripcion + "," + municipio + "," + tarifa;
         String lineaActual;
 
         while((lineaActual = reader.readLine()) != null) {
             // Recortando linea a los extremos para comparla con linea a actualizar. 
             String lineaRecortada = lineaActual.trim();
-            if(lineaRecortada.startsWith(codigo)){
+            if(lineaRecortada.startsWith(codigos[0] + "," + nombresDestino[0])){
                     writer.write(lineaAActualizar + System.getProperty("line.separator"));
                     continue;
             } //Omite la linea con ocurrencia y no la escribe en el archivo temporal

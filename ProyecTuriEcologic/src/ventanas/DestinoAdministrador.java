@@ -132,7 +132,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
                                             this.modelo.getValueAt(filaSeleccionada, 3).toString(),
                                             this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
                 
-                this.modelo.removeRow(seleccion);
+                this.modelo.removeRow(filaSeleccionada);
             }
         }else{
             JOptionPane.showMessageDialog(frame, "Por favor seleccione una fila.");
@@ -143,14 +143,23 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         int filaSeleccionada = this.tablaDestinos.getSelectedRow();
         
         if (filaSeleccionada >= 0){
+            String[] codigos = {"", ""};  //codigos[0] = desde el textField, codigos[1] = desde la Tabla
+            codigos[0] = modelo.getValueAt(filaSeleccionada, 0).toString();//ID viejo
+            codigos[1] = this.txID.getText();//ID nuevo
+            
+            String[] nombresDestinos = {"", ""};  //codigos[0] = desde el textField, codigos[1] = desde la Tabla
+            nombresDestinos[0] = modelo.getValueAt(filaSeleccionada, 1).toString();//nombre viejo
+            nombresDestinos[1] = this.txNombreDestino.getText();//nombre nuevo
+            
+            modelo.setValueAt(this.txID.getText(), filaSeleccionada, 0);
             modelo.setValueAt(this.txNombreDestino.getText(), filaSeleccionada, 1);
             modelo.setValueAt(this.txDescripcion.getText(), filaSeleccionada, 2);
             modelo.setValueAt(this.txMunicipio.getText(), filaSeleccionada, 3);
             modelo.setValueAt(this.txTarifa.getText(), filaSeleccionada, 4);
             
             CDestinoAdministrador controlador = new CDestinoAdministrador();
-            controlador.actualizarDestino(modelo.getValueAt(filaSeleccionada, 0).toString(),
-                                        this.modelo.getValueAt(filaSeleccionada, 1).toString(),
+            controlador.actualizarDestino(codigos,
+                                        nombresDestinos,
                                         this.modelo.getValueAt(filaSeleccionada, 2).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 3).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
@@ -169,19 +178,6 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         }
                
     }
-    
-    void createPlaceHolder(JTextField textField, String placeHolderText){
-        if(textField.getText().equals(placeHolderText)){
-            textField.setText("");
-            textField.setForeground(Color.black);
-        }
-        else{ 
-            if(textField.getText().equals("")){
-                textField.setText(placeHolderText);
-                textField.setForeground(Color.GRAY);
-            }
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -194,7 +190,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
 
         BotonCrear = new javax.swing.JButton();
         botonActualizar = new javax.swing.JButton();
-        BotonListar = new javax.swing.JButton();
+        BotonBuscar = new javax.swing.JButton();
         BotonEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -205,6 +201,12 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaDestinos = new javax.swing.JTable();
         BotonCerrarSesión = new javax.swing.JButton();
+        txID = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,10 +224,10 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             }
         });
 
-        BotonListar.setText("Listar");
-        BotonListar.addActionListener(new java.awt.event.ActionListener() {
+        BotonBuscar.setText("Buscar");
+        BotonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonListarActionPerformed(evt);
+                BotonBuscarActionPerformed(evt);
             }
         });
 
@@ -243,43 +245,11 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         jLabel3.setText("TuriEcologic");
 
         txNombreDestino.setForeground(new java.awt.Color(153, 153, 153));
-        txNombreDestino.setText("Nombre");
-        txNombreDestino.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txNombreDestinoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txNombreDestinoFocusLost(evt);
-            }
-        });
-        txNombreDestino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txNombreDestinoActionPerformed(evt);
-            }
-        });
 
         txDescripcion.setColumns(1);
         txDescripcion.setForeground(new java.awt.Color(153, 153, 153));
-        txDescripcion.setText("Descripcion");
-        txDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txDescripcionFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txDescripcionFocusLost(evt);
-            }
-        });
 
         txMunicipio.setForeground(new java.awt.Color(153, 153, 153));
-        txMunicipio.setText("Municipio");
-        txMunicipio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txMunicipioFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txMunicipioFocusLost(evt);
-            }
-        });
         txMunicipio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txMunicipioActionPerformed(evt);
@@ -287,15 +257,6 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         });
 
         txTarifa.setForeground(new java.awt.Color(153, 153, 153));
-        txTarifa.setText("Tarifa");
-        txTarifa.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txTarifaFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txTarifaFocusLost(evt);
-            }
-        });
 
         tablaDestinos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -346,38 +307,56 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             }
         });
 
+        txID.setForeground(new java.awt.Color(153, 153, 153));
+
+        jLabel2.setText("ID");
+
+        jLabel4.setText("Nombre");
+
+        jLabel5.setText("Municipio");
+
+        jLabel6.setText("Tarifa");
+
+        jLabel7.setText("Descripción");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.CENTER))
+                .addGap(282, 282, 282)
                 .addComponent(BotonCerrarSesión)
                 .addGap(30, 30, 30))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.CENTER)))
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
                             .addComponent(txNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
                             .addComponent(txMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txID, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txDescripcion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BotonListar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonCrear)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(BotonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(botonActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BotonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BotonCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel7))
+                        .addGap(0, 257, Short.MAX_VALUE)))
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
@@ -393,23 +372,41 @@ public class DestinoAdministrador extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(BotonCerrarSesión)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BotonCrear)
+                                .addGap(26, 26, 26)
+                                .addComponent(BotonBuscar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonListar)
-                    .addComponent(botonActualizar)
-                    .addComponent(BotonEliminar)
-                    .addComponent(BotonCrear))
-                .addGap(23, 23, 23))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(botonActualizar)
+                                .addGap(29, 29, 29)
+                                .addComponent(BotonEliminar)))))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -433,71 +430,19 @@ public class DestinoAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
-    private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
-        try {
+    private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
+         try {
             // TODO add your handling code here:
             this.listar();
         } catch (IOException ex) {
             Logger.getLogger(DestinoAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_BotonListarActionPerformed
-
-    private void txNombreDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNombreDestinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txNombreDestinoActionPerformed
+    }//GEN-LAST:event_BotonBuscarActionPerformed
 
     private void BotonCerrarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesiónActionPerformed
         // TODO add your handling code here:
         this.cerrarSesion();
     }//GEN-LAST:event_BotonCerrarSesiónActionPerformed
-
-    private void txNombreDestinoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txNombreDestinoFocusGained
-        // TODO add your handling code here:
-        String placeHolderText = "Nombre";
-        this.createPlaceHolder(this.txNombreDestino, placeHolderText);
-    }//GEN-LAST:event_txNombreDestinoFocusGained
-
-    private void txNombreDestinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txNombreDestinoFocusLost
-        // TODO add your handling code here:
-        String placeHolderText = "Nombre";
-        this.createPlaceHolder(this.txNombreDestino, placeHolderText);
-    }//GEN-LAST:event_txNombreDestinoFocusLost
-
-    private void txMunicipioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txMunicipioFocusGained
-        // TODO add your handling code here:
-        String placeHolderText = "Municipio";
-        this.createPlaceHolder(this.txMunicipio, placeHolderText);
-    }//GEN-LAST:event_txMunicipioFocusGained
-
-    private void txMunicipioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txMunicipioFocusLost
-        // TODO add your handling code here:
-        String placeHolderText = "Municipio";
-        this.createPlaceHolder(this.txMunicipio, placeHolderText);
-    }//GEN-LAST:event_txMunicipioFocusLost
-
-    private void txTarifaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txTarifaFocusGained
-        // TODO add your handling code here:
-        String placeHolderText = "Tarifa";
-        this.createPlaceHolder(this.txTarifa, placeHolderText);
-    }//GEN-LAST:event_txTarifaFocusGained
-
-    private void txTarifaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txTarifaFocusLost
-        // TODO add your handling code here:
-        String placeHolderText = "Tarifa";
-        this.createPlaceHolder(this.txTarifa, placeHolderText);
-    }//GEN-LAST:event_txTarifaFocusLost
-
-    private void txDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txDescripcionFocusGained
-        // TODO add your handling code here:
-        String placeHolderText = "Descripcion";
-        this.createPlaceHolder(this.txDescripcion, placeHolderText);
-    }//GEN-LAST:event_txDescripcionFocusGained
-
-    private void txDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txDescripcionFocusLost
-        // TODO add your handling code here:
-        String placeHolderText = "Descripcion";
-        this.createPlaceHolder(this.txDescripcion, placeHolderText);
-    }//GEN-LAST:event_txDescripcionFocusLost
 
     private void txMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txMunicipioActionPerformed
         // TODO add your handling code here:
@@ -506,6 +451,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     private void tablaDestinosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDestinosMouseClicked
         // TODO add your handling code here:
         int filaSeleccionada = this.tablaDestinos.getSelectedRow();
+        this.txID.setText(this.modelo.getValueAt(filaSeleccionada, 0).toString());
         this.txNombreDestino.setText(this.modelo.getValueAt(filaSeleccionada, 1).toString());
         this.txDescripcion.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
         this.txMunicipio.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
@@ -529,16 +475,22 @@ public class DestinoAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonBuscar;
     private javax.swing.JButton BotonCerrarSesión;
     private javax.swing.JButton BotonCrear;
     private javax.swing.JButton BotonEliminar;
-    private javax.swing.JButton BotonListar;
     private javax.swing.JButton botonActualizar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaDestinos;
     private javax.swing.JTextField txDescripcion;
+    private javax.swing.JTextField txID;
     private javax.swing.JTextField txMunicipio;
     private javax.swing.JTextField txNombreDestino;
     private javax.swing.JTextField txTarifa;
