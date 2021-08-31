@@ -56,7 +56,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             objeto[3] = listaUsuarios.get(i).getUsuario();
             objeto[4] = listaUsuarios.get(i).getTelefono();
             objeto[5] = listaUsuarios.get(i).isIsAdmin();
-          
+
             modelo.addRow(objeto); //Añadiendo las celdas de cada fila del modelo.
         }
         

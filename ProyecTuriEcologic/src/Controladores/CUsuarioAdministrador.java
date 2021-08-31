@@ -39,7 +39,7 @@ public class CUsuarioAdministrador {
             
             while ((record = reader.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(record, ",");
-                MUsuario usuarioA  = new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken().substring(0,1), st.nextToken());
+                MUsuario usuarioA  = new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken());
                 usuarioA.setIsAdmin(st.nextToken().equals("1"));
                 lista.add(usuarioA);
                 
