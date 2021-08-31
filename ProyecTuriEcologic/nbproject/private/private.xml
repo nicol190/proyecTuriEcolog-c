@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/ventanas/DestinosAdministrador.java</file>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/Modelos/MUsuario.java</file>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/Controladores/CDestinoTuristico.java</file>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/ventanas/RegistrarUsuario.java</file>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/ventanas/DestinoTuristico.java</file>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/Modelos/MDestinoFavorito.java</file>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/ventanas/Login.java</file>
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/Modelos/MDestinoTuristico.java</file>
+            <file>file:/C:/Users/Santi/Documents/NetBeansProjects/proyecTuriEcolog-c/ProyecTuriEcologic/src/Modelos/MUsuario.java</file>
             <file>file:/C:/Users/Santi/Documents/NetBeansProjects/proyecTuriEcolog-c/ProyecTuriEcologic/src/ventanas/UsuarioAdministrador.java</file>
-            <file>file:/C:/Users/Santi/Documents/NetBeansProjects/proyecTuriEcolog-c/ProyecTuriEcologic/src/Controladores/CDestinoAdministrador.java</file>   
-            <file>file:/C:/Users/pipe_/Documents/Proyectos/proyecTuriEcolog-c/ProyecTuriEcologic/src/Controladores/CRegistrarUsuario.java</file>
+            <file>file:/C:/Users/Santi/Documents/NetBeansProjects/proyecTuriEcolog-c/ProyecTuriEcologic/src/Controladores/CUsuarioAdministrador.java</file>
         </group>
     </open-files>
 </project-private>

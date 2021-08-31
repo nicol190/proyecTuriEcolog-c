@@ -132,6 +132,24 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         return 1;
     }
     
+    public boolean buscar() throws IOException{
+        //Vista
+        String nombreInput = JOptionPane.showInputDialog("Nombre:").toLowerCase();
+        String apellidoInput = JOptionPane.showInputDialog("Apellido:").toLowerCase();
+        
+        for (int i = 0; i < modelo.getRowCount(); i++){
+            String nombre = this.modelo.getValueAt(i, 0).toString().toLowerCase();
+            String apellido = this.modelo.getValueAt(i, 1).toString().toLowerCase();
+            
+            if (nombreInput.equals(nombre) && apellidoInput.equals(apellido)){
+                //this.tablaUsuarios.removeRowSelectionInterval();
+                this.tablaUsuarios.setRowSelectionInterval(i, i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void eliminar() throws IOException {
         int filaSeleccionada = this.tablaUsuarios.getSelectedRow();
         JFrame frame = new JFrame();
@@ -230,7 +248,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         txNombreUsuario = new javax.swing.JTextField();
         txTelefono = new javax.swing.JTextField();
         ComboBoxIsAdmin = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        txBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -383,7 +401,12 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
 
         ComboBoxIsAdmin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario corriente", "Administrador" }));
 
-        jButton1.setText("Buscar");
+        txBuscar.setText("Buscar");
+        txBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -403,7 +426,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BotonCrear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(txBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -454,7 +477,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                     .addComponent(botonActualizar)
                     .addComponent(BotonEliminar)
                     .addComponent(BotonCrear)
-                    .addComponent(jButton1))
+                    .addComponent(txBuscar))
                 .addGap(23, 23, 23))
         );
 
@@ -576,6 +599,15 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txTelefonoActionPerformed
 
+    private void txBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txBuscarActionPerformed
+        try {
+            // TODO add your handling code here:
+            this.buscar();
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -628,12 +660,12 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton BotonEliminar;
     private javax.swing.JComboBox<String> ComboBoxIsAdmin;
     private javax.swing.JButton botonActualizar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField txApellido;
+    private javax.swing.JButton txBuscar;
     private javax.swing.JTextField txCorreoElectronico;
     private javax.swing.JTextField txNombre;
     private javax.swing.JTextField txNombreUsuario;
