@@ -6,6 +6,7 @@
 package ventanas;
 
 import Controladores.CDestinoAdministrador;
+import Controladores.ListaEnlazada;
 import Modelos.MDestinoAdministrador;
 import Modelos.MDestinoTuristico;
 import java.awt.Color;
@@ -45,7 +46,7 @@ public class DestinoAdministrador extends javax.swing.JFrame {
             modelo.setRowCount(0);
         }
         
-        LinkedList<MDestinoTuristico> listaDestinos = null;
+        ListaEnlazada listaDestinos = null;
         try {
             listaDestinos = new CDestinoAdministrador().obtenerLista();
         } catch (FileNotFoundException ex) {

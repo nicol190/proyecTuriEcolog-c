@@ -68,8 +68,8 @@ public class CDestinoAdministrador {
         this.directoryName = directoryName;
     }
     
-    public LinkedList<MDestinoTuristico> obtenerLista() throws FileNotFoundException, IOException {
-        LinkedList<MDestinoTuristico> lista = new ListaEnlazada();
+    public ListaEnlazada obtenerLista() throws FileNotFoundException, IOException {
+        ListaEnlazada lista = new ListaEnlazada();
 
         BufferedReader reader = new BufferedReader(new FileReader(url));
         String record;
