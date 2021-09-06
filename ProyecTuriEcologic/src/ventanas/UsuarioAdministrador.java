@@ -56,7 +56,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             objeto[3] = listaUsuarios.get(i).getUsuario();
             objeto[4] = listaUsuarios.get(i).getTelefono();
             objeto[5] = listaUsuarios.get(i).isIsAdmin();
-          
+
             modelo.addRow(objeto); //Añadiendo las celdas de cada fila del modelo.
         }
         
@@ -132,6 +132,24 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         return 1;
     }
     
+    public boolean buscar() throws IOException{
+        //Vista
+        String nombreInput = JOptionPane.showInputDialog("Nombre:").toLowerCase();
+        String apellidoInput = JOptionPane.showInputDialog("Apellido:").toLowerCase();
+        
+        for (int i = 0; i < modelo.getRowCount(); i++){
+            String nombre = this.modelo.getValueAt(i, 0).toString().toLowerCase();
+            String apellido = this.modelo.getValueAt(i, 1).toString().toLowerCase();
+            
+            if (nombreInput.equals(nombre) && apellidoInput.equals(apellido)){
+                //this.tablaUsuarios.removeRowSelectionInterval();
+                this.tablaUsuarios.setRowSelectionInterval(i, i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void eliminar() throws IOException {
         int filaSeleccionada = this.tablaUsuarios.getSelectedRow();
         JFrame frame = new JFrame();
@@ -159,7 +177,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     
     public void actualizar() throws IOException{
         int filaSeleccionada = this.tablaUsuarios.getSelectedRow();
-        
+        //Vista
         if (filaSeleccionada >= 0){
             modelo.setValueAt(this.txNombre.getText(), filaSeleccionada, 0);
             modelo.setValueAt(this.txApellido.getText(), filaSeleccionada, 1);
@@ -168,6 +186,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             modelo.setValueAt(this.txTelefono.getText(), filaSeleccionada, 4);
             modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString().equals("Administrador") ? "true":"false" , filaSeleccionada, 5);
             
+            //Controlador
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.actualizarUsuario(modelo.getValueAt(filaSeleccionada, 0).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 1).toString(),
@@ -230,7 +249,13 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         txNombreUsuario = new javax.swing.JTextField();
         txTelefono = new javax.swing.JTextField();
         ComboBoxIsAdmin = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        txBuscar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -364,6 +389,11 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                 txNombreUsuarioFocusLost(evt);
             }
         });
+        txNombreUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txNombreUsuarioActionPerformed(evt);
+            }
+        });
 
         txTelefono.setForeground(new java.awt.Color(153, 153, 153));
         txTelefono.setText("Telefono");
@@ -382,8 +412,30 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         });
 
         ComboBoxIsAdmin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario corriente", "Administrador" }));
+        ComboBoxIsAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxIsAdminActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Buscar");
+        txBuscar.setText("Buscar");
+        txBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nombre");
+
+        jLabel4.setText("Apellido");
+
+        jLabel5.setText("Nombre de Usuario");
+
+        jLabel6.setText("Correo Electronico");
+
+        jLabel7.setText("Telefono");
+
+        jLabel8.setText("Tipo de Usuario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -395,33 +447,46 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BotonCrear)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonEliminar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(txTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(ComboBoxIsAdmin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(txNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE))
                 .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ComboBoxIsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                    .addComponent(txNombre))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(txCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(txApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6))))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonActualizar, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,27 +500,43 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(BotonCerrarSesión)))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboBoxIsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonActualizar)
-                    .addComponent(BotonEliminar)
-                    .addComponent(BotonCrear)
-                    .addComponent(jButton1))
-                .addGap(23, 23, 23))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ComboBoxIsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BotonCrear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txBuscar)
+                        .addGap(12, 12, 12)
+                        .addComponent(botonActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BotonEliminar)))
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -536,7 +617,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         this.txCorreoElectronico.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString());
         this.txNombreUsuario.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString());
         this.txTelefono.setText(this.modelo.getValueAt(filaSeleccionada, 4).toString().replace(".0", ""));
-        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("Administrador") ? 1: 0);
+        this.ComboBoxIsAdmin.setSelectedIndex(this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("true") ? 1: 0);
     }//GEN-LAST:event_tablaUsuariosMouseClicked
 
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
@@ -575,6 +656,23 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     private void txTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txTelefonoActionPerformed
+
+    private void txBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txBuscarActionPerformed
+        try {
+            // TODO add your handling code here:
+            this.buscar();
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txBuscarActionPerformed
+
+    private void ComboBoxIsAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxIsAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxIsAdminActionPerformed
+
+    private void txNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNombreUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txNombreUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -628,12 +726,18 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton BotonEliminar;
     private javax.swing.JComboBox<String> ComboBoxIsAdmin;
     private javax.swing.JButton botonActualizar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField txApellido;
+    private javax.swing.JButton txBuscar;
     private javax.swing.JTextField txCorreoElectronico;
     private javax.swing.JTextField txNombre;
     private javax.swing.JTextField txNombreUsuario;
