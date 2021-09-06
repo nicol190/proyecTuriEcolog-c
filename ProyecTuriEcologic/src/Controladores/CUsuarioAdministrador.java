@@ -44,6 +44,7 @@ public class CUsuarioAdministrador {
                 lista.add(usuarioA);
                 
             }
+            reader.close();
         }
 
         return lista;

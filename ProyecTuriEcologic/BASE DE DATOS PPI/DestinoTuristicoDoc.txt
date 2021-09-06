@@ -1,4 +1,5 @@
-1,Cañon del rio claro,Reserva natural su nombre se da por el esplendoroso rio que recorrer entre las formaciones de rocas y cañones pedregosa,entre san Francisco,180.000
-2,parque del cafe,atraccione mecanicas,montenegro,70000
-3,nevado del ruiz,volcan activo,santa rosa,90.000
-4,piedra el peñol,represa,guatape,25.000
+1,Cañon del rio claro,Reserva natural su nombre se da por el esplendoroso rio que recorre entre las formaciones de rocas y cañones pedregosas,entre san Francisco,180.000,3004283546
+2,Rio Melcocho,Este es uno de los ríos mas hermosos y limpios de Colombia,cocorna,70000,3014567890
+3,Salto del angel,En este municipio siendo patrimonio de colombia entraras en una espectacular cascada natural con una caída vertical de cincuenta metros aproximadamente,Jardin Antioqia,90.000,3225789043
+4,piedra el peñol,represa natural,guatape,25.000,3026879076
+5,Parque ecológico las nubes,puedes encontrar el parque ecológico las nubes para practicar senderismo a una gran altura,Jerico Antioquia,70000,3075768945

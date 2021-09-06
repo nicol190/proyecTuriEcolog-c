@@ -12,8 +12,8 @@ package Modelos;
 public class MDestinoFavorito extends MDestinoTuristico {
     private String usuario;
 
-    public MDestinoFavorito(String usuario, int codigo, String nombreDestino, String descripcion, String municipio, float tarifa) {
-        super(codigo, nombreDestino, descripcion, municipio, tarifa);
+    public MDestinoFavorito(String usuario, int codigo, String nombreDestino, String descripcion, String municipio, float tarifa, String contacto) {
+        super(codigo, nombreDestino, descripcion, municipio, tarifa, contacto );
         this.usuario = usuario;
     }
 

@@ -15,7 +15,7 @@ public class MDestinoAdministrador {
     private String descripcion;
     private String municipio;
     private int tarifa;
-    private String foto;//Sin implementar.
+    
 
     public MDestinoAdministrador(int codigo,String nombreDestino, String descripcion, String municipio, int tarifa) {
         this.codigo = codigo;
@@ -68,13 +68,7 @@ public class MDestinoAdministrador {
 
   
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
+  
     
     
     
