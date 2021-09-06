@@ -291,27 +291,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txBotonRegistrarseMouseClicked
 
     private void BotonRecuperarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRecuperarContraseñaActionPerformed
-        String recuperar;
-        recuperar = JOptionPane.showInputDialog("Ingrese su usuario");
-        
-       try {
-           MUsuario  recuperaC = controladorRegistrar.buscarUsuarioContraseña(recuperar);
-           
-           if (recuperaC != null){
-               RecuperarContraseña RE = new RecuperarContraseña(recuperaC.getUsuario());
-               RE.setVisible(true);
-               dispose();
-               
-           }else{
-               JOptionPane.showMessageDialog(null, "El usuario no existe");
-           
-           
-           }
-           
-       } catch (IOException ex) {
-           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        
+        RecuperarContraseña RC = new RecuperarContraseña();
+        RC.setVisible(true);
+        dispose();
         
         
     }//GEN-LAST:event_BotonRecuperarContraseñaActionPerformed

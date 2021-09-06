@@ -57,6 +57,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        botonLimpiar = new javax.swing.JButton();
 
         jTextField2.setText("jTextField2");
 
@@ -160,6 +161,14 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Source Serif Pro Semibold", 0, 14)); // NOI18N
         jLabel8.setText("confirmacion de contraseña");
 
+        botonLimpiar.setFont(new java.awt.Font("Source Serif Pro Semibold", 0, 14)); // NOI18N
+        botonLimpiar.setText("Limpiar");
+        botonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -168,13 +177,15 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txPassword2))
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(botonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txPassword2))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
@@ -230,18 +241,23 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txPassword1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(txnombreDeUsuario))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(BotonRegistrarse)
+                        .addGap(16, 16, 16))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addComponent(BotonCancelar))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(BotonRegistrarse)))
-                .addGap(12, 12, 12)
-                .addComponent(BotonCancelar)
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -319,6 +335,11 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             try {
                 respuesta = controladorRegistrar.registroUsuarios(datosRegistro);
                 JOptionPane.showMessageDialog(null, "ha sido registrado con exito");
+                Login LG = new  Login();
+                LG.setVisible(true);
+                dispose();
+                
+                
             } catch (IOException ex) {
                 Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 if (respuesta == false) {
@@ -333,6 +354,24 @@ public class RegistrarUsuario extends javax.swing.JFrame {
        
     }//GEN-LAST:event_BotonRegistrarseActionPerformed
 
+    
+     public void limpiarCampos() {
+        txNombre.setText(null);
+        txapellido.setText(null);
+        txcorreo.setText(null);
+        txtelefono.setText(null);
+        txnombreDeUsuario.setText(null);
+        txPassword1.setText(null);
+        txPassword2.setText(null);
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     private void txNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txNombreActionPerformed
@@ -366,6 +405,10 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         lG.setVisible(true);
         dispose();
     }//GEN-LAST:event_BotonCancelarActionPerformed
+
+    private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_botonLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -407,6 +450,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton BotonCancelar;
     private javax.swing.JButton BotonRegistrarse;
     private javax.swing.JLabel apellido;
+    private javax.swing.JButton botonLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

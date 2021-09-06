@@ -85,7 +85,7 @@ public class CRegistrarUsuario {
         
     }
     
-    public MUsuario buscarUsuarioContraseña(String usuario) throws IOException {
+    public MUsuario buscarUsuarioContraseña(String usuario, String correo) throws IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(url));// carga el archivo 
         String record;
@@ -95,9 +95,11 @@ public class CRegistrarUsuario {
 
             MUsuario usuarioBusqueda = new MUsuario(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken());
 
-            if (usuarioBusqueda.getUsuario().equals(usuario)) {
+            if (usuarioBusqueda.getUsuario().equals(usuario) && usuarioBusqueda.getCorreo().equals(correo)) {
                 return usuarioBusqueda;
-            }
+               
+               
+           }     
         }
 
         br.close();
