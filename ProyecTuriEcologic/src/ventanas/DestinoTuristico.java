@@ -22,13 +22,14 @@ import java.util.logging.Logger;
  */
 public class DestinoTuristico extends javax.swing.JFrame {
     public CDestinoTuristico controladorDestinos;
-    public String usuario;
-    public String MUsuario;
+  
+    public MUsuario usuario;
+    
     
     /**
      * Creates new form DestinoTuristico
      */
-    public DestinoTuristico(String usuario)  {
+    public DestinoTuristico(MUsuario usuario)  {
         initComponents();
         this.usuario = usuario;
         this.controladorDestinos = new CDestinoTuristico();
@@ -69,7 +70,7 @@ public class DestinoTuristico extends javax.swing.JFrame {
         listaFavoritosD.setSelectedIndex(0);
     }
     public void cargarListasFavorito(){
-         Stack<MDestinoTuristico> listaFavoritos = controladorDestinos.obtenerListaPilaPorUsuario(usuario);
+         Stack<MDestinoTuristico> listaFavoritos = controladorDestinos.obtenerListaPilaPorUsuario(usuario.getUsuario());
             refrescarListaDestinosFavoritos(listaFavoritos);
     }
     
@@ -113,6 +114,8 @@ public class DestinoTuristico extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txDescripcion = new javax.swing.JTextArea();
+        jLabel9 = new javax.swing.JLabel();
+        txcontacto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -303,6 +306,16 @@ public class DestinoTuristico extends javax.swing.JFrame {
         txDescripcion.setRows(5);
         jScrollPane3.setViewportView(txDescripcion);
 
+        jLabel9.setFont(new java.awt.Font("Source Serif Pro Semibold", 0, 14)); // NOI18N
+        jLabel9.setText("Contacto del lugar ");
+
+        txcontacto.setFont(new java.awt.Font("Source Serif Pro Semibold", 0, 14)); // NOI18N
+        txcontacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txcontactoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -327,8 +340,10 @@ public class DestinoTuristico extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(txmunicipio, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                     .addComponent(txDestino, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
-                .addGap(59, 59, 59)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jLabel9)
+                    .addComponent(txcontacto))
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -340,7 +355,7 @@ public class DestinoTuristico extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +370,7 @@ public class DestinoTuristico extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 8, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,7 +387,11 @@ public class DestinoTuristico extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtarifa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txcontacto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -392,9 +411,9 @@ public class DestinoTuristico extends javax.swing.JFrame {
             // se crea un objeto de tipo MDestinoTuristico para guardar lo que retorna buscar destino que es de tipo MDestinoTuristico
             MDestinoTuristico destinoU = controladorDestinos.buscarDestinoTuristico(Integer.parseInt(codigoDestino));
             
-            MDestinoFavorito favorito = new MDestinoFavorito(usuario,destinoU.getCodigo(),destinoU.getNombreDestino(),destinoU.getDescripcion(),destinoU.getMunicipio(),destinoU.getTarifa());
+            MDestinoFavorito favorito = new MDestinoFavorito(usuario.getUsuario(),destinoU.getCodigo(),destinoU.getNombreDestino(),destinoU.getDescripcion(),destinoU.getMunicipio(),destinoU.getTarifa(),destinoU.getContacto() );
             boolean agregarFavorito = controladorDestinos.agregarDestinoFavorito(favorito);
-            Stack<MDestinoTuristico> listaFavoritos = controladorDestinos.obtenerListaPilaPorUsuario(usuario);
+            Stack<MDestinoTuristico> listaFavoritos = controladorDestinos.obtenerListaPilaPorUsuario(usuario.getUsuario());
             refrescarListaDestinosFavoritos(listaFavoritos);
             
            
@@ -421,10 +440,10 @@ public class DestinoTuristico extends javax.swing.JFrame {
             
             // se busca un destino turistico por medio del campo codigo
             // se crea un objeto de tipo MDestinoTuristico para guardar lo que retorna buscar destino que es de tipo MDestinoTuristico
-            boolean destinoF = controladorDestinos.eliminarDestinoFavorito(usuario, Integer.parseInt(codigoDestino));
+            boolean destinoF = controladorDestinos.eliminarDestinoFavorito(usuario.getUsuario(), Integer.parseInt(codigoDestino));
             
             
-            Stack<MDestinoTuristico> listaFavoritos = controladorDestinos.obtenerListaPilaPorUsuario(usuario);
+            Stack<MDestinoTuristico> listaFavoritos = controladorDestinos.obtenerListaPilaPorUsuario(usuario.getUsuario());
             refrescarListaDestinosFavoritos(listaFavoritos);
             
             
@@ -452,6 +471,7 @@ public class DestinoTuristico extends javax.swing.JFrame {
                 txDescripcion.setText(destinoU.getDescripcion());
                 txmunicipio.setText(destinoU.getMunicipio());
                 txtarifa.setText(String.valueOf(destinoU.getTarifa()));
+                txcontacto.setText(destinoU.getContacto());
                
             }
         } catch (IOException ex) {
@@ -460,27 +480,20 @@ public class DestinoTuristico extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaDestinosValueChanged
 
     private void BotonIrAlPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIrAlPerfilActionPerformed
-        CRegistrarUsuario perfilU = new CRegistrarUsuario();
-        /*try {
-            MUsuario usuarioU = perfilU.buscarUsuario(usuario, usuario);
-            if (usuarioU != null){
-                if (usuarioU.getUsuario() == true){
-                PerfilUsuario PU = new PerfilUsuario();
+    
+            if (usuario!= null){
+                
+                PerfilUsuario PU = new PerfilUsuario(usuario);
                 PU.setVisible(true);
                 dispose();
-            }
-                
-            }
             
-        } catch (IOException ex) {
-            Logger.getLogger(DestinoTuristico.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-       
-        
-        
-       
-    
+            }
+           
     }//GEN-LAST:event_BotonIrAlPerfilActionPerformed
+
+    private void txcontactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txcontactoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txcontactoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,6 +517,7 @@ public class DestinoTuristico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -513,6 +527,7 @@ public class DestinoTuristico extends javax.swing.JFrame {
     private javax.swing.JList<String> listaFavoritosD;
     private javax.swing.JTextArea txDescripcion;
     private javax.swing.JTextField txDestino;
+    private javax.swing.JTextField txcontacto;
     private javax.swing.JTextField txmunicipio;
     private javax.swing.JTextField txtarifa;
     // End of variables declaration//GEN-END:variables

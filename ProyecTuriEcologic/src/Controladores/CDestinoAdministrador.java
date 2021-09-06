@@ -76,7 +76,7 @@ public class CDestinoAdministrador {
 
         while ((record = reader.readLine()) != null) {
             StringTokenizer st = new StringTokenizer(record, ",");
-            MDestinoTuristico turisticoAdministrador = new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.valueOf(st.nextToken()));
+            MDestinoTuristico turisticoAdministrador = new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.valueOf(st.nextToken()),st.nextToken());
             lista.add(turisticoAdministrador);
             
         }
@@ -87,7 +87,7 @@ public class CDestinoAdministrador {
 
     }
     
-public boolean actualizarDestino(String codigo, String nombreDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
+    public boolean actualizarDestino(String codigo, String nombreDestino, String descripcion, String municipio, String tarifa) throws FileNotFoundException, IOException {
         File archivoEntrada = new File (this.url);
         File archivoTemporal = new File(this.urlTemp);
 

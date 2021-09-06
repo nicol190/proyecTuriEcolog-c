@@ -16,6 +16,7 @@ public class MDestinoTuristico {
     private String municipio;
     private float tarifa;
     private String foto;
+    String contacto;
     
     
     
@@ -24,12 +25,13 @@ public class MDestinoTuristico {
         
     }
 
-    public MDestinoTuristico(int codigo, String nombreDestino, String descripcion, String municipio, float tarifa) {
+    public MDestinoTuristico(int codigo, String nombreDestino, String descripcion, String municipio, float tarifa,String contacto) {
         this.codigo = codigo;
         this.nombreDestino = nombreDestino;
         this.descripcion = descripcion;
         this.municipio = municipio;
         this.tarifa = tarifa;
+        this.contacto = contacto;
         //this.foto = foto;
     }
 
@@ -73,13 +75,21 @@ public class MDestinoTuristico {
         this.tarifa = tarifa;
     }
 
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
    
   
     
     public String prepararInformacion(){
         String informacion;
      
-        informacion = String.valueOf(codigo) +"," + nombreDestino + "," + descripcion + "," + municipio + "," + String.valueOf(tarifa) ;
+        informacion = String.valueOf(codigo) +"," + nombreDestino + "," + descripcion + "," + municipio + "," + String.valueOf(tarifa) + "," + contacto ;
         return informacion;
         }
 
