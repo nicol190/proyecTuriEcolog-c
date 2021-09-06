@@ -43,14 +43,15 @@ public class CDestinoTuristico {
         urlTemp = directoryName + "/BASE DE DATOS PPI/DestinoTuristicoDoc.txt";
 
     }
-
+//la lista de datos se crea en el archivo y se carga con pilas y colas 
+    
     public Stack<MDestinoTuristico> obtenerListaPila() {
         Path path = Paths.get("");
         String directoryName = path.toAbsolutePath().toString();
         url = directoryName + "/BASE DE DATOS PPI/DestinoTuristicoDoc.txt";
         urlTemp = directoryName + "/BASE DE DATOS PPI/DestinoTuristicoDoc.txt";
         Stack<MDestinoTuristico> pila = new Stack<>();
-
+        
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(url));
@@ -58,7 +59,7 @@ public class CDestinoTuristico {
 
             while ((record = br.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(record, ",");
-                pila.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.parseFloat(st.nextToken())));
+                pila.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.parseFloat(st.nextToken()),st.nextToken()));
 
             }
 
@@ -81,7 +82,7 @@ public class CDestinoTuristico {
 
         while ((record = br.readLine()) != null) {
             StringTokenizer st = new StringTokenizer(record, ",");
-            cola.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.parseFloat(st.nextToken())));
+            cola.add(new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.parseFloat(st.nextToken()),st.nextToken()));
 
         }
 
@@ -103,7 +104,7 @@ public class CDestinoTuristico {
         while ((record = br.readLine()) != null) {
             StringTokenizer st = new StringTokenizer(record, ",");
 
-            MDestinoTuristico destino = new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.parseFloat(st.nextToken()));
+            MDestinoTuristico destino = new MDestinoTuristico(Integer.parseInt(st.nextToken()), st.nextToken(), st.nextToken(), st.nextToken(), Float.parseFloat(st.nextToken()),st.nextToken());
 
             if (destino.getCodigo() == codigo) {
 
@@ -166,7 +167,7 @@ public class CDestinoTuristico {
                 StringTokenizer st = new StringTokenizer(record, ",");
                 MDestinoTuristico turistico = buscarDestinoTuristico(Integer.parseInt(st.nextToken()));
                 if (turistico != null) {
-                    MDestinoFavorito favoritos = new MDestinoFavorito(st.nextToken(), turistico.getCodigo(), turistico.getNombreDestino(), turistico.getDescripcion(), turistico.getMunicipio(), turistico.getTarifa());
+                    MDestinoFavorito favoritos = new MDestinoFavorito(st.nextToken(), turistico.getCodigo(), turistico.getNombreDestino(), turistico.getDescripcion(), turistico.getMunicipio(), turistico.getTarifa(),turistico.getContacto());
                     if (favoritos.getUsuario().equals(usuario)) {
                         pila.add(turistico);
 
@@ -209,7 +210,7 @@ public class CDestinoTuristico {
                 StringTokenizer st = new StringTokenizer(record, ",");
                 MDestinoTuristico turistico = buscarDestinoTuristico(Integer.parseInt(st.nextToken()));
                 if (turistico != null) {
-                    MDestinoFavorito favoritos = new MDestinoFavorito(st.nextToken(), turistico.getCodigo(), turistico.getNombreDestino(), turistico.getDescripcion(), turistico.getMunicipio(), turistico.getTarifa());
+                    MDestinoFavorito favoritos = new MDestinoFavorito(st.nextToken(), turistico.getCodigo(), turistico.getNombreDestino(), turistico.getDescripcion(), turistico.getMunicipio(), turistico.getTarifa(),turistico.getContacto());
                     if (favoritos != null) {
                         if (favoritos.getUsuario().equals(usuario) && favoritos.getCodigo() == codigo) {
                             eliminado = true;
@@ -268,7 +269,7 @@ public class CDestinoTuristico {
 
             MDestinoTuristico turistico = buscarDestinoTuristico(Integer.parseInt(st.nextToken()));
             if (turistico != null) {
-                MDestinoFavorito favorito = new MDestinoFavorito(st.nextToken(), turistico.getCodigo(), turistico.getNombreDestino(), turistico.getDescripcion(), turistico.getMunicipio(), turistico.getTarifa());
+                MDestinoFavorito favorito = new MDestinoFavorito(st.nextToken(), turistico.getCodigo(), turistico.getNombreDestino(), turistico.getDescripcion(), turistico.getMunicipio(), turistico.getTarifa(),turistico.getContacto());
                 if (favorito != null) {
                     if (favorito.getUsuario().equals(usuario) && favorito.getCodigo() == codigo) {
                         return favorito;
