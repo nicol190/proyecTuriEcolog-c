@@ -29,6 +29,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     DefaultTableModel modelo;//modelo para ser insertado en la tabla.
     /**
      * Creates new form DestinosAdministrador
+     * @throws java.io.IOException
      */
     public UsuarioAdministrador() throws IOException {
         initComponents();
@@ -85,15 +86,6 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             String nombreUsuario = txNombreUsuario.getText();
             String telefono = txTelefono.getText();
             Boolean isAdmin = "Administrador".equals(ComboBoxIsAdmin.getSelectedItem().toString());
-            try {
-                //  Block of code to try
-                Integer.parseInt(txTelefono.getText());
-            }
-            catch(Exception e) {
-                //  Block of code to handle errors
-                JOptionPane.showMessageDialog(frame, "Ingrese solo numeros sin comas ni puntos en el campo 'Telefono' ");
-                return 0;
-            }
             
             char[] password = null;
             JPanel panel = new JPanel();
@@ -119,12 +111,12 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             fila[2] = correo;
             fila[3] = nombreUsuario;
             fila[4] = telefono;
-            fila[5] = isAdmin ? "Administrador" : "Usuario Corriente";
+            fila[5] = isAdmin ? "true" : "false";
 
             modelo.addRow(fila);//Agregando nueva fila.
             
             //Controlador
-            MUsuario usuario = new MUsuario(nombre, apellido, correo,nombreUsuario, new String(password), telefono);
+            MUsuario usuario = new MUsuario(nombre, apellido, correo, telefono, nombreUsuario, new String(password));
             usuario.setIsAdmin(isAdmin);
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.agregarUsuario(usuario);
@@ -186,13 +178,14 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             modelo.setValueAt(this.txTelefono.getText(), filaSeleccionada, 4);
             modelo.setValueAt(this.ComboBoxIsAdmin.getSelectedItem().toString().equals("Administrador") ? "true":"false" , filaSeleccionada, 5);
             
+            //String nombre, String apellido, String correo, String telefono, String nombreUsuario, boolean isAdmin
             //Controlador
             CUsuarioAdministrador controlador = new CUsuarioAdministrador();
             controlador.actualizarUsuario(modelo.getValueAt(filaSeleccionada, 0).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 1).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 2).toString(),
-                                        this.modelo.getValueAt(filaSeleccionada, 3).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 4).toString(),
+                                        this.modelo.getValueAt(filaSeleccionada, 3).toString(),
                                         this.modelo.getValueAt(filaSeleccionada, 5).toString().equals("true"));
         }else{
             JFrame frame = new JFrame();

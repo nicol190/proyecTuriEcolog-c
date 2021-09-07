@@ -2,3 +2,4 @@ Daniel,Giraldo,Dgiraldo@gmail.com,345678,Dgiraldo,1234,1
 nicol,bernal,nikiber@gmail.com,345678,nbernal,1234,0
 Nlaura,bernal,lauqgamil.coom,1234567,laural,12345,0
 dahiana,bernal,nikiber@gmail.com,34534756,dahiana,1234,0
+Santiago,Hoyos,santiagohoyos2808@gmail.com,3168178593,santihoyos15,1234,1
