@@ -15,14 +15,15 @@ public class MDestinoAdministrador {
     private String descripcion;
     private String municipio;
     private int tarifa;
-    
+    private String contacto;
 
-    public MDestinoAdministrador(int codigo,String nombreDestino, String descripcion, String municipio, int tarifa) {
+    public MDestinoAdministrador(int codigo,String nombreDestino, String descripcion, String municipio, int tarifa, String contacto) {
         this.codigo = codigo;
         this.nombreDestino = nombreDestino;
         this.descripcion = descripcion;
         this.municipio = municipio;
         this.tarifa = tarifa;
+        this.contacto = contacto;
     }
 
     public int getCodigo() {
@@ -65,6 +66,15 @@ public class MDestinoAdministrador {
     public void setTarifa(int tarifa) {
         this.tarifa = tarifa;
     }
+    
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+    
 
   
 
