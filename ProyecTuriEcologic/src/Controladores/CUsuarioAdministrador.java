@@ -103,7 +103,7 @@ public class CUsuarioAdministrador {
         File archivoTemporal = new File(this.urlTemp);
 
         BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal, true));
         
         String lineaActual;
 
