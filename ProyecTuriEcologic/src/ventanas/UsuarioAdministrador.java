@@ -256,6 +256,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        BotonVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -286,7 +287,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("TuriEcologic");
 
-        txNombre.setForeground(new java.awt.Color(153, 153, 153));
+        txNombre.setForeground(new java.awt.Color(0, 0, 0));
         txNombre.setText("Nombre");
         txNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -302,7 +303,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             }
         });
 
-        txApellido.setForeground(new java.awt.Color(153, 153, 153));
+        txApellido.setForeground(new java.awt.Color(0, 0, 0));
         txApellido.setText("Apellido");
         txApellido.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -318,7 +319,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             }
         });
 
-        txCorreoElectronico.setForeground(new java.awt.Color(153, 153, 153));
+        txCorreoElectronico.setForeground(new java.awt.Color(0, 0, 0));
         txCorreoElectronico.setText("Correo Electronico");
         txCorreoElectronico.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -379,7 +380,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             }
         });
 
-        txNombreUsuario.setForeground(new java.awt.Color(153, 153, 153));
+        txNombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
         txNombreUsuario.setText("Nombre de Usuario");
         txNombreUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -395,7 +396,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
             }
         });
 
-        txTelefono.setForeground(new java.awt.Color(153, 153, 153));
+        txTelefono.setForeground(new java.awt.Color(0, 0, 0));
         txTelefono.setText("Telefono");
         txTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -437,19 +438,32 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
 
         jLabel8.setText("Tipo de Usuario");
 
+        BotonVolver.setText("Volver");
+        BotonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonVolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotonCerrarSesión)
-                .addGap(30, 30, 30))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BotonVolver)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(295, 295, 295)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(287, 287, 287)
+                                .addComponent(jLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BotonCerrarSesión)
+                        .addGap(4, 4, 4))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE))
                 .addGap(26, 26, 26))
             .addGroup(layout.createSequentialGroup()
@@ -495,13 +509,15 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(11, 11, 11)
                         .addComponent(jLabel1))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(BotonCerrarSesión)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BotonCerrarSesión)
+                            .addComponent(BotonVolver))))
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -674,6 +690,13 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txNombreUsuarioActionPerformed
 
+    private void BotonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonVolverActionPerformed
+        // TODO add your handling code here:
+        OpcionAdministrador ventanaVolver = new OpcionAdministrador();
+        ventanaVolver.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BotonVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -724,6 +747,7 @@ public class UsuarioAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton BotonCerrarSesión;
     private javax.swing.JButton BotonCrear;
     private javax.swing.JButton BotonEliminar;
+    private javax.swing.JButton BotonVolver;
     private javax.swing.JComboBox<String> ComboBoxIsAdmin;
     private javax.swing.JButton botonActualizar;
     private javax.swing.JLabel jLabel1;
