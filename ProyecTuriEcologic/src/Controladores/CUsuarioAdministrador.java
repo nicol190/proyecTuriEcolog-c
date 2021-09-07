@@ -103,7 +103,7 @@ public class CUsuarioAdministrador {
         File archivoTemporal = new File(this.urlTemp);
 
         BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal, true));
         
         String lineaActual;
 
@@ -115,8 +115,9 @@ public class CUsuarioAdministrador {
             } //Encuentra linea con ocurrencia y la omite en el archivo temporal
             writer.write(lineaActual + System.getProperty("line.separator")); //linea + separador de linea.
         }
-        writer.close(); 
+        
         reader.close();
+        writer.close(); 
         archivoEntrada.delete(); //Borrando archivo original.
         return archivoTemporal.renameTo(archivoEntrada); //Renombrando el archivo temporal al nombre del de entrada para reemplazarlo
         

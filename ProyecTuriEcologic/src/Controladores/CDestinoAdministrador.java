@@ -60,7 +60,7 @@ public boolean actualizarDestino(String[] codigos, String[] nombresDestino, Stri
         File archivoTemporal = new File(this.urlTemp);
 
         BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal, true));
 
         String lineaAActualizar = codigos[1] + "," + nombresDestino[1] + "," + descripcion + "," + municipio + "," + tarifa + "," + contacto;
         String lineaActual;

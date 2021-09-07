@@ -37,20 +37,22 @@ public class RecuperarContraseña extends javax.swing.JFrame {
         String correo;
         recuperar = JOptionPane.showInputDialog("Ingrese su usuario");
         correo = JOptionPane.showInputDialog(" ingrese su correo");
-        
-     
-        
+
         MUsuario metodoContraseña = new MUsuario();
         
        try {
            metodoContraseña = controladorUsuario.buscarUsuarioContraseña(recuperar,correo);
-           String password = metodoContraseña.getPassword();
-          
+                     
            if(metodoContraseña == null){
                JOptionPane.showMessageDialog(null, "los datos ingresados no corresponden a un usuario registrado");
-               
+                Login DA = new Login();
+                DA.setVisible(true);
+                dispose();
+           }else{
+               nuevaContraseña.setText(metodoContraseña.getPassword());
+               String password = metodoContraseña.getPassword();
            }
-           nuevaContraseña.setText(metodoContraseña.getPassword());
+         
             
        } catch (IOException ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);

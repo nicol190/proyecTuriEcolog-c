@@ -48,7 +48,7 @@ public class CRegistrarUsuario {
      
         String informacion = usuario.prepararInformacion();
      
-        BufferedWriter bw = new BufferedWriter(new FileWriter(url));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(url, true));
 
             bw.write(informacion);
             bw.flush();
