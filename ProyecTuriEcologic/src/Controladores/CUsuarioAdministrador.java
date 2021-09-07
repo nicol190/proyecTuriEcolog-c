@@ -51,12 +51,12 @@ public class CUsuarioAdministrador {
 
     }
     
-    public boolean actualizarUsuario(String nombre, String apellido, String correo, String nombreUsuario, String telefono, boolean isAdmin) throws FileNotFoundException, IOException {
+    public boolean actualizarUsuario(String nombre, String apellido, String correo, String telefono, String nombreUsuario, boolean isAdmin) throws FileNotFoundException, IOException {
         File archivoEntrada = new File (this.url);
         File archivoTemporal = new File(this.urlTemp);
 
         BufferedReader reader = new BufferedReader(new FileReader(archivoEntrada));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoTemporal, true));
         
         String valorAdmin = isAdmin ? "1" : "0";
         
@@ -87,8 +87,8 @@ public class CUsuarioAdministrador {
             String linea = usuario.getNombre() + "," +
                     usuario.getApellido() + "," +
                     usuario.getCorreo() + "," +
-                    usuario.getUsuario() + "," +
                     usuario.getTelefono() + "," +
+                    usuario.getUsuario() + "," +
                     usuario.getPassword() + "," +
                     isAdminString;
             
